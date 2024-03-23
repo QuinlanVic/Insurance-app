@@ -4,8 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            font-family: "Fraunces";
+        }
+        .heading {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            font-size: 48px;
+            text-align: center;
+        }
+        .policy-container {
+            display: grid;
+            row-gap: 16px;
+        }
+        .policy-poster {
+            /* max-height: 145px; */
+            aspect-ratio: 2 / 1;
+            width: 100%;
+            object-fit: cover;
+        }
+        .name-price {
+            font-size: 32px;
+        }
+        .policy-desc {
+            font-size: 20px;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
-    <h1>Policy page</h1>
+    <h1 class = "heading">Policy</h1>
+    <div class="policy-container">
+        <img class = "policy-poster" src="{{policy['poster']}}" alt="policy poster">
+        <p class="name-price">{{policy["name"]}} - R{{policy["price"]}}p/m</p>
+        <p class="policy-desc"> {{policy["desc"]}}</p>
+    </div>
 </body>
-</html>
+</html> 
