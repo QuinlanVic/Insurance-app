@@ -36,7 +36,7 @@ policies = [
         "name": "Blue Car Insurance",
         "price": 500,
         "poster": "https://c4.wallpaperflare.com/wallpaper/14/17/129/2011-hyundai-i10-wallpaper-preview.jpg",
-        "desc": f"Blue Car Insurance if affordable and is targeted at students and young professionals",
+        "desc": "Blue Car Insurance is affordable and is targeted at students and young professionals",
     },
     {
         "id": 2,
@@ -114,12 +114,21 @@ def policies_page():
     return render_template("policies.html", policies=policies)
 
 
+policylocal = {
+    "id": 1,
+    "name": "Blue Car Insurance",
+    "price": 500,
+    "poster": "https://c4.wallpaperflare.com/wallpaper/14/17/129/2011-hyundai-i10-wallpaper-preview.jpg",
+    "desc": "Blue Car Insurance is affordable and is targeted at students and young professionals",
+}
+
+
 # policy page
 @app.route("/policies/<id>")
 def policy_page(id):
     policy = get_policy(id)
-    print(policy)
-    return render_template("policy.html", policy=policy["data"])
+    print(type(policy))
+    return render_template("policy.html", policy=policylocal)
 
 
 # Define a route for the /about URL
