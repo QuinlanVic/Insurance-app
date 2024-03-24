@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+     <!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
     <style>
         body {
             font-family: "Fraunces";
@@ -38,6 +40,62 @@
             font-size: 20px;
             line-height: 1.5;
         }
+        .footer {
+            background: deepskyblue;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+        }
+        .copyright {
+            flex: 1 1 auto;
+            flex-basis: 100%;
+            flex-grow: 0;
+            max-width: 100%; 
+        }
+        .copyright-text {
+            color: ghostwhite;
+            text-align: center;
+        }
+        .socials {
+            flex: 1 1 auto;
+            flex-basis: 100%;
+            flex-grow: 0;
+            max-width: 100%; 
+        }
+        .three-socials {
+            display: flex;
+            flex-wrap: nowrap;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            min-width: 0;
+        }
+        /* style all font awesome icons */
+        .fa {
+            padding: 20px;
+            font-size: 30px;
+            width: 50px;
+            text-align: center;
+            text-decoration: none;
+        }
+        /* psuedo class "hover" for nice interaction */
+        .fa:hover {
+            opacity: 0.7;
+        }
+        /* set specific colours for each social media platform icon */
+        .fa-facebook {
+            background: #3B5998;
+            color: white;
+        }
+        .fa-instagram {
+            /* fancy background for instagram */
+            background: radial-gradient(circle farthest-corner at 35% 90%, #fec564, transparent 50%), radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%), radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 20% -50%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 60% -20%, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent), linear-gradient(#6559ca, #bc318f 30%, #e33f5f 50%, #f77638 70%, #fec66d 100%);
+            color: white;
+        }
+        .fa-twitter {
+            background: #55ACEE;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -47,6 +105,21 @@
         <p class="name-price">{{policy["name"]}} - R{{policy["price"]}}p/m</p>
         <p class="policy-desc"> {{policy["desc"]}}</p>
         <!-- <p>{{policy}}</p> -->
+    </div>
+     <!-- footer :) -->
+     <div class="footer">
+        <div class="copyright">
+            <p class="copyright-text">
+                Copyright © CoolWater is a licensed non-life insurer and Financial Services Provider (FSP 29698). Ts & Cs apply.
+            </p>
+        </div>
+        <div class="socials">
+            <div class="three-socials">
+                <a href="http://www.facebook.com/coolwater" class="fa fa-facebook"></a>
+                <a href="https://instagram.com/coolwater" class="fa fa-instagram"></a>
+                <a href="http://twitter.com/coolwater" class="fa fa-twitter"></a>
+            </div>
+        </div>
     </div>
 </body>
 </html> 

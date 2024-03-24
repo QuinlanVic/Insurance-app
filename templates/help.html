@@ -4,8 +4,216 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
+    <style>
+        body {
+            margin: 0;
+            display: grid;
+            place-content: center;
+            /* center on y-axis */
+            min-height: 100vh;
+            font-family: sans-serif;
+            line-height: 1.3;
+        }
+        .contact-container {
+            background: skyblue;
+            text-align: center;
+        }
+        .contact-pic {
+            /* width: 100%; */
+           border-radius: 12px;
+           object-fit: cover;
+        }
+        .heading {
+            text-align: center;
+        }
+        .detailsandcontact {
+            display: grid; 
+            grid-template-columns: 2, 1fr;
+            text-align: left;
+        }
+        .details {
+
+        }
+        .detailsbox {
+
+        }
+        .footer {
+            background: deepskyblue;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+        }
+        .copyright {
+            flex: 1 1 auto;
+            flex-basis: 100%;
+            flex-grow: 0;
+            max-width: 100%; 
+        }
+        .copyright-text {
+            color: ghostwhite;
+            text-align: center;
+        }
+        .socials {
+            flex: 1 1 auto;
+            flex-basis: 100%;
+            flex-grow: 0;
+            max-width: 100%; 
+        }
+        .three-socials {
+            display: flex;
+            flex-wrap: nowrap;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            min-width: 0;
+        }
+        /* style all font awesome icons */
+        .fa {
+            padding: 20px;
+            font-size: 30px;
+            width: 50px;
+            text-align: center;
+            text-decoration: none;
+        }
+        /* psuedo class "hover" for nice interaction */
+        .fa:hover {
+            opacity: 0.7;
+        }
+        /* set specific colours for each social media platform icon */
+        .fa-facebook {
+            background: #3B5998;
+            color: white;
+        }
+        .fa-instagram {
+            /* fancy background for instagram */
+            background: radial-gradient(circle farthest-corner at 35% 90%, #fec564, transparent 50%), radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%), radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 20% -50%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 60% -20%, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent), linear-gradient(#6559ca, #bc318f 30%, #e33f5f 50%, #f77638 70%, #fec66d 100%);
+            color: white;
+        }
+        .fa-twitter {
+            background: #55ACEE;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <h1>Help</h1>
+    <div class="contact-container">
+        <img class= "contact-pic" src="https://media.istockphoto.com/id/1389465531/photo/shot-of-a-young-male-call-center-agent-working-in-an-office.jpg?s=612x612&w=0&k=20&c=G1cCZrErj-tUz6eKCPXUhDgNnSAvBzZ-vGCVNGbBNRQ=" alt="callcentre employee">
+        <h1 class = "heading">Contact Us</h1>
+        <div class="detailsandcontact">
+            <div class = "details">
+                <div class="detailsbox">
+                    <h4>Fill in your details below, and a specially-assigned agent will call you back 🙂</h4>
+                    <div>
+
+                    </div>
+                    <div>
+
+                    </div>
+                    <div>
+
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+            <div class = "contactinfo">
+                <div>
+                    <h2>
+                        <i class="fa fa-car"></i>
+                    </h2>
+                </div>
+                <div>
+                    <h4>
+                        Physical Address 
+                    </h4>
+                    <div>2 Strand Road,</div>
+                    <div>Bellville,</div>
+                    <div>Cape Town, 7530</div>
+                </div>
+                <div>
+                    <div>
+                            <i class="fa fa-phone"></i>
+                    </div>
+                    <div>
+                        <h3>Contact us on: <a href="tel:+27219165000">021 916 5000</a></h3>
+                        <h4>Emergency assistance OR CoolDrive service</h4>
+                        <div>
+                            <a href="tel:+27860726526">0860 726 526</a>
+                        </div>
+                        <div>
+                            Emergency line is open 24 hours a day
+                        </div>
+                        <div>
+                            For CoolDrive, please book at least 72 hours in advance
+                        </div>
+                        <h4>Report any incidents of:</h4>
+                        <div>
+                            <ul>
+                                <li>Fraud</li>
+                                <li>Corruption</li>
+                                <li>Misconduct ot</li>
+                                <li>Unethical behaviour</li>
+                            </ul>
+                        </div>
+                        <h4>To the CoolWater Ethics & Fraud Hotline on the following reporting channels</h4>
+                        <div>
+                            <ul>
+                                <li>Whatsapp: <a href="tel:+27860726526">0860 726 526</a></li>
+                                <li>Email: <a href="mailto:coolwater@becool.com">coolwater@becool.com</a></li>
+                                <li><a href="https://becool.co.za">Online: becool.co.za</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h4>We value your feedback ad welcome any comments</h4>
+                    <div>
+                        <a href="https:coolfeedback.co.za">coolfeedback.co.za</a>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <h2>
+                            <i class="fa fa-clock-o"></i>
+                        </h2>
+                    </div>
+                    <div>
+                        <div>
+                            <h4>Client Services</h4>
+                            <div>Mon-Fri: 08h00 - 18h00</div>
+                            <div>Sat: 08h00 - 13h00</div>
+                        </div>
+                        <div>
+                            <h4>Sales</h4>
+                            <div>Mon-Fri: 08h00 - 18h00</div>
+                            <div>Sat: 08h00 - 13h00</div>
+                        </div>
+                        <div>
+                            <h4>Claims</h4>
+                            <div>Mon-Fri: 08h00 - 17h00</div>
+                            <div>Sat: 08h00 - 13h00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer :) -->
+    <div class="footer">
+        <div class="copyright">
+            <p class="copyright-text">
+                Copyright © CoolWater is a licensed non-life insurer and Financial Services Provider (FSP 29698). Ts & Cs apply.
+            </p>
+        </div>
+        <div class="socials">
+            <div class="three-socials">
+                <a href="http://www.facebook.com/coolwater" class="fa fa-facebook"></a>
+                <a href="https://instagram.com/coolwater" class="fa fa-instagram"></a>
+                <a href="http://twitter.com/coolwater" class="fa fa-twitter"></a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
