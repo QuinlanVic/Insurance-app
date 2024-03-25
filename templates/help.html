@@ -7,6 +7,32 @@
     <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
     <style>
+        .navbar {
+            background: deepskyblue;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .page-link {
+            text-align: center;
+            color: ghostwhite;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 24px;
+        }
+        .page-link:hover {
+            background: whitesmoke;
+            color: black;
+        }
+        .page-link:active {
+            background: black;
+            color: whitesmoke;
+        }
+        .page-link.active {
+                background: black;
+                color: whitesmoke;
+        }
         body {
             margin: 0;
             display: grid;
@@ -214,6 +240,21 @@
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <div class="leftbar">
+            <a class = "page-link" href="/"> Home</a>
+            <a class = "page-link" href="/policies">Policies</a>
+            <a class = "page-link" href="/about"> About</a>
+            <a class = "page-link active" href="/help">Help</a>
+        </div>
+        <div class="rightbar">
+            <!-- if -->
+            <a class = "page-link" href="/signup">Sign Up</a>
+            <a class = "page-link" href="/login">Login</a>
+            <!-- else -->
+            <!-- <a class = "page-link" href="/profile">Profile</a> -->
+        </div>
+    </div>
     <div class="contact-container">
         <img class= "contact-pic" src="https://media.istockphoto.com/id/1389465531/photo/shot-of-a-young-male-call-center-agent-working-in-an-office.jpg?s=612x612&w=0&k=20&c=G1cCZrErj-tUz6eKCPXUhDgNnSAvBzZ-vGCVNGbBNRQ=" alt="callcentre employee">
         <h1 class = "heading">Contact Us</h1>
