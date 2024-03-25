@@ -39,13 +39,17 @@
             text-align: left; */
         }
         /* LEFT */
-        /* .details {
+        .details {
             background-color: #bc318f;
-        } */
+            /* display: block; */
+            /* flex-wrap: wrap; */
+            /* flex-direction: row; */
+        }
         .detailsbox {
-            display: flex;
+            /* display: flex;
             flex-wrap: wrap;
-            flex-direction: row;
+            flex-direction: row; */
+            text-align: left;
         }
         /* RIGHT */
         /* .contactinfo {
@@ -219,29 +223,31 @@
                 <div class="detailsbox">
                     <h4>Fill in your details below, and a specially-assigned agent will call you back 🙂</h4>
                     <!-- Let's create a very simple form -->
-                    <form action="/my-handling-form-page" method="post">
-                        <ul class = "form-list">
-                            <li>
-                              <label for="name">Name:</label>
-                              <input type="text" id="name" name="user_name" />
-                            </li>
-                            <li>
-                                <label for="number">Phone Num:</label>
-                                <input type="text" id="number" name="user_number" />
-                              </li>
-                            <li>
-                              <label for="mail">Email:</label>
-                              <input type="email" id="mail" name="user_email" />
-                            </li>
-                            <li>
-                              <label for="msg">Message:</label>
-                              <textarea id="msg" name="user_message"></textarea>
-                            </li>
-                            <li class="button">
-                                <button class="formbutton" type="submit">Send request</button>
-                              </li>
-                          </ul>
-                    </form>
+                    <div>
+                        <form action="/my-handling-form-page" method="post">
+                            <ul class = "form-list">
+                                <li>
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="user_name" />
+                                </li>
+                                <li>
+                                    <label for="number">Phone Num:</label>
+                                    <input type="text" id="number" name="user_number" />
+                                </li>
+                                <li>
+                                <label for="mail">Email:</label>
+                                <input type="email" id="mail" name="user_email" />
+                                </li>
+                                <li>
+                                <label for="msg">Message:</label>
+                                <textarea id="msg" name="user_message"></textarea>
+                                </li>
+                                <li class="button">
+                                    <button class="formbutton" type="submit">Send request</button>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
                 </div>
             </div>
 
@@ -295,7 +301,7 @@
                             <ul>
                                 <li>Whatsapp: <a href="tel:+27860726526">0860 726 526</a></li>
                                 <li>Email: <a href="mailto:coolwater@becool.com">coolwater@becool.com</a></li>
-                                <li><a href="https://becool.co.za">Online: becool.co.za</a></li>
+                                <li>Online: <a href="https://becool.co.za">becool.co.za</a></li>
                             </ul>
                         </div>
                         <h4>We value your feedback ad welcome any comments</h4>

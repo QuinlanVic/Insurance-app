@@ -9,12 +9,16 @@
     <style>
         body {
             font-family: "Fraunces";
+            background: skyblue;
         }
         .all-policies {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            /* display: grid; */
+            /* grid-template-columns: repeat(3, 1fr); */
+            display: flex;
             row-gap: 16px;
             column-gap: 16px;
+            justify-content: space-around;
+            flex-wrap: wrap; 
         }
         .heading {
             text-transform: uppercase;
@@ -32,9 +36,13 @@
             aspect-ratio: 2 / 1;
             width: 100%;
             object-fit: cover;
+            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
         }
         .name-price {
             font-size: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         .policy-desc {
             font-size: 20px;
@@ -104,7 +112,10 @@
         {%for policy in policies%}
         <div class="policy-container">
             <img class = "policy-poster" src="{{policy['poster']}}" alt="policy poster">
-            <p class="name-price">{{policy["name"]}} - R{{policy["price"]}}p/m</p>
+            <div class=""name-price>
+                <p class="name">{{policy["name"]}}</p>
+                <p class="price">R{{policy["price"]}}p/m</p>
+            </div>
             <p class="policy-desc"> {{policy["desc"]}}</p>
         </div>
         {% endfor %}
