@@ -79,6 +79,10 @@
             font-size: 20px;
             line-height: 1.5;
         }
+        .policy-action {
+            display: flex;
+            justify-content: space-between;
+        }
         .footer {
             background: deepskyblue;
             display: flex;
@@ -158,7 +162,7 @@
         {%for policy in policies%}
         <div class="policy-container">
             <img class = "policy-poster" src="{{policy['poster']}}" alt="policy poster">
-            <div class=""name-price>
+            <div class="name-price">
                 <p class="name">{{policy["name"]}}</p>
                 <p class="price">R{{policy["price"]}}p/m</p>
             </div>
