@@ -1,8 +1,60 @@
 from flask import Flask, jsonify, request, render_template
-import json
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import text
+
+import os
+from dotenv import load_dotenv
+import uuid
 
 # Create a instance of Flask
 app = Flask(__name__)
+
+# CONNECT TO MSSM Database
+# All to keep away private passwords and stuff away from the public via
+# puts variables in .env file into windows environmental variables
+# load_dotenv()  # load -> os env (environmental variables)
+
+# General Pattern
+# mssql+pyodbc://<username>:<password>@<dsn_name>?driver=<driver_name>
+
+# change connection string when working with different databases
+# connection_string = os.environ.get("AZURE_DATABASE_URL")
+# app.config["SQLALCHEMY_DATABASE_URI"] = connection_string
+# db = SQLAlchemy(app)  # ORM
+
+# to test connection
+# try:
+#     with app.app_context():
+#         # Use text() to explicitly declare your SQL command
+#         result = db.session.execute(text("SELECT 1")).fetchall()
+#         print("Connection successful:", result)
+# except Exception as e:
+#     print("Error connecting to the database:", e)
+
+
+# connect to our azure and create table(s)
+# constructor we are using is from "db.Model"
+# class Movie(db.Model):
+#     __tablename__ = "movies"
+# automatically creates and assigned value
+# id = db.Column(db.String(50), primary_key=True, default=lambda: str(uuid.uuid4()))
+# name = db.Column(db.String(50))
+# poster = db.Column(db.String(50))
+# rating = db.Column(db.Float(50))
+# summary = db.Column(db.String(50))
+# trailer = db.Column(db.String(50))
+
+# JSON - Keys (can change names sent to front-end)
+# def to_dict(self):
+#     return {
+#         "id": self.id,
+#         "name": self.name,
+#         "poster": self.poster,
+#         "rating": self.rating,
+#         "summary": self.summary,
+#         "trailer": self.trailer,
+#     }
+
 
 # some dummy employee data
 employees = [

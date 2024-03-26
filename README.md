@@ -54,3 +54,16 @@ flask run
 ```sh
 flask run --debug
 ```
+
+
+## Dependencies
+### Take snapshots of all project packages (have to update with each new package installation)
+```sh
+pip freeze > requirements.txt
+```
+Useful for saving all specific packages in case my environment is deleted for example
+
+### Install add dependencies from requirements.txt
+```sh
+pip install -r requirements.txt
+```

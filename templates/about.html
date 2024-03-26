@@ -13,11 +13,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 64px;
         }
         .page-link {
             text-align: center;
             color: ghostwhite;
-            padding: 14px 16px;
+            padding: 0px 16px;
             text-decoration: none;
             font-size: 24px;
         }
@@ -36,12 +37,13 @@
         body {
             font-family: sans-serif;
             background: skyblue;
+            margin: 0;
         }
         .heading {
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 700;
-            font-size: 48px;
+            /* font-size: 48px; */
             text-align: center;
         }
         .employee-msg {
@@ -130,11 +132,17 @@
             background: #55ACEE;
             color: white;
         }
+        .logo {
+            height: 32px;
+            width: 32px;
+            
+        }
     </style>
 </head>
 <body>
     <div class="navbar">
         <div class="leftbar">
+            <img class = "logo" src="https://freesvg.org/img/1413121417.png"/>
             <a class = "page-link" href="/"> Home</a>
             <a class = "page-link" href="/policies">Policies</a>
             <a class = "page-link active" href="/about"> About</a>
@@ -149,6 +157,18 @@
         </div>
     </div>
     <h1 class = "heading">About Us</h1>
+    <div>
+        <p></p>
+        <div>
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+        </div>
+    </div>
+    <h2 class = "heading">CoolWater's Management Team</h2>
     {%for employee in employees%}
     <div class = "employee-container">
         <!-- mustache -->
