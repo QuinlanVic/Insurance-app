@@ -36,11 +36,19 @@
         body {
             /* font-family: "Fraunces"; */
             font-family: sans-serif;
-            margin: 0;
-            display: grid;
-            place-content: center;
-            /* center on y-axis */
-            min-height: 100vh;
+            background: skyblue;
+            /* display: grid; */
+            /* place-content: center; */
+        }
+        .all-policies {
+            /* display: grid; */
+            /* grid-template-columns: repeat(3, 1fr); */
+            display: flex;
+            /* gap: 16px; */
+            row-gap: 16px;
+            column-gap: 16px;
+            justify-content: space-around;
+            flex-wrap: wrap; 
         }
         .heading {
             text-transform: uppercase;
@@ -49,23 +57,38 @@
             font-size: 48px;
             text-align: center;
         }
-        .policy-container {
+        .middle {
             display: grid;
-            row-gap: 16px;
+            place-content: center;
+        }
+        .policy-container {
+            /* display: grid; */
+            /* place-content: center; */
+            /* row-gap: 16px; */
+            width: 640px;
         }
         .policy-poster {
             /* max-height: 145px; */
             /* aspect-ratio: 2 / 1; */
-            width: 500px;
+            height: 460px;
+            width: 100%;
             object-fit: cover;
-            place-content: center;
+            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+            border-radius: 12px;
         }
         .name-price {
             font-size: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         .policy-desc {
             font-size: 20px;
             line-height: 1.5;
+        }
+        .policy-action {
+            display: flex;
+            justify-content: space-between;
         }
         .footer {
             background: deepskyblue;
@@ -142,11 +165,18 @@
         </div>
     </div>
     <h1 class = "heading">Policy</h1>
-    <div class="policy-container">
-        <img class = "policy-poster" src="{{policy['poster']}}" alt="policy poster">
-        <p class="name-price">{{policy["name"]}} - R{{policy["price"]}}p/m</p>
-        <p class="policy-desc"> {{policy["desc"]}}</p>
-        <!-- <p>{{policy}}</p> -->
+    <div class="middle">
+        <div class="policy-container">
+            <img class = "policy-poster" src="{{policy['poster']}}" alt="policy poster">
+            <div class="name-price">
+                <p class="name">{{policy["name"]}}</p>
+                <p class="price">R{{policy["price"]}}p/m</p>
+            </div>
+            <p class="policy-desc"> {{policy["desc"]}}</p>
+            <div class="policy-action">
+                <a href="/policies/{{policy['id']}}">Read More ...</a>
+            </div>
+        </div>
     </div>
      <!-- footer :) -->
      <div class="footer">
