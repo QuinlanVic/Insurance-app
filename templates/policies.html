@@ -30,17 +30,19 @@
             color: whitesmoke;
         }
         .page-link.active {
-                background: black;
-                color: whitesmoke;
+            background: black;
+            color: whitesmoke;
         }
         body {
-            font-family: "Fraunces";
+            /* font-family: "Fraunces"; */
+            font-family: sans-serif;
             background: skyblue;
         }
         .all-policies {
             /* display: grid; */
             /* grid-template-columns: repeat(3, 1fr); */
             display: flex;
+            /* gap: 16px; */
             row-gap: 16px;
             column-gap: 16px;
             justify-content: space-around;
@@ -54,15 +56,18 @@
             text-align: center;
         }
         .policy-container {
-            display: grid;
-            row-gap: 16px;
+            /* display: grid;
+            row-gap: 16px; */
+            width: 640px;
         }
         .policy-poster {
             /* max-height: 145px; */
-            aspect-ratio: 2 / 1;
+            /* aspect-ratio: 2 / 1; */
+            height: 460px;
             width: 100%;
             object-fit: cover;
             box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+            border-radius: 12px;
         }
         .name-price {
             font-size: 32px;
@@ -136,7 +141,7 @@
     <div class="navbar">
         <div class="leftbar">
             <a class = "page-link" href="/"> Home</a>
-            <a class = "page-link" href="/policies">Policies</a>
+            <a class = "page-link active" href="/policies">Policies</a>
             <a class = "page-link" href="/about"> About</a>
             <a class = "page-link" href="/help">Help</a>
         </div>
@@ -158,6 +163,9 @@
                 <p class="price">R{{policy["price"]}}p/m</p>
             </div>
             <p class="policy-desc"> {{policy["desc"]}}</p>
+            <div class="policy-action">
+                <a href="/policies/{{policy['id']}}">Read More ...</a>
+            </div>
         </div>
         {% endfor %}
     </div>

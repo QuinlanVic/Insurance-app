@@ -207,7 +207,7 @@ def base_page():
     return render_template("base.html")
 
 
-# ************ CRUD OPERATIONS FOR USER ************
+# ************ CRUD OPERATIONS FOR USER *********************************************************************************************
 # GET -> all users -> JSON
 @app.get("/users")
 def get_users():
@@ -292,7 +292,7 @@ def create_user():
     return jsonify(result), 201
 
 
-# ************ CRUD OPERATIONS FOR POLICIES ************
+# ************ CRUD OPERATIONS FOR POLICIES ***************************************************************************************************************
 # GET -> all policies -> JSON
 @app.get("/policies-data")
 def get_policies():
