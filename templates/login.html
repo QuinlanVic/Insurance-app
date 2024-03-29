@@ -126,17 +126,41 @@
             <!-- <a class = "page-link" href="/profile">Profile</a> -->
         </div>
     </div>
-    <h1 class="heading">Login</h1>
-    <div class="q">
-        <a href="/signup">Don't have an account?</a>
+    <div class="container">
+        <h1 class = "heading">Login</h1>
+        <div class="q">
+            <a href="/signup">Don't have an account?</a>
+        </div>
+        <!-- if we want to refer to the current URL but with different action as POST -->
+        <form class="login-form" action="{{url_for('go_to_profile')}}" action="" method="post">
+            <!-- Hidden input field with token as value (CSRF) -->
+            {{form.hidden_tag()}}
+            <!-- display error(s) from "validate_email"-->
+            {% if form.email.errors %}
+
+                {% for error in form.email.errors %}
+                    <div style="color:red">{{error}}</div>
+                {% endfor %}
+
+            {% endif %}
+
+            {% if form.password.errors %}
+
+                {% for error in form.password.errors %}
+                    <div style="color:red">{{error}}</div>
+                {% endfor %}
+
+            {% endif %}
+
+            <!-- add labels so users always know what they must type in -->
+            <div class="form-group">
+                <!-- add "is-invalid" next to "form-control" if there are errors -->
+                {{form.email.label}}: {{form.email(placeholder="Email", class="form-control {{ if form.email.errors 'is-invalid' }}")}}
+            </div>
+            {{form.password.label}} {{form.password(placeholder="Password", class="form-control")}}
+            {{form.submit(class="btn btn-primary")}}
+        </form>
     </div>
-    <form class="login-form" action="{{url_for('go_to_profile')}}" method="post">
-        <!-- input element to accept user input -->
-        <!-- name = key for your value -->
-        <input name="email" type="text" placeholder="Email"/>
-        <input name="password" type="password" placeholder="Password" />
-        <button typoe="submit">Login</button>
-    </form>
     <!-- footer :) -->
     <div class="footer">
         <div class="copyright">
