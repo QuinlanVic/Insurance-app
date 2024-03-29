@@ -11,7 +11,7 @@ from flask_wtf import FlaskForm
 # CONNECT TO MSSM Database
 # All to keep away private passwords and stuff away from the public via
 # puts variables in .env file into windows environmental variables
-# load_dotenv()  # load -> os env (environmental variables)
+load_dotenv()  # load -> os env (environmental variables)
 # print(os.environ.get("AZURE_DATABASE_URL"))
 
 
@@ -19,32 +19,45 @@ from flask_wtf import FlaskForm
 app = Flask(__name__)
 
 # secret so we have to provide it in the ".env" file
-# app.config["SECRET_KEY"] = os.environ.get("FORM_SECRET_KEY")  # CSRF token
+app.config["SECRET_KEY"] = os.environ.get("FORM_SECRET_KEY2")  # CSRF token
 
 
 # General Pattern
 # mssql+pyodbc://<username>:<password>@<dsn_name>?driver=<driver_name>
 
+# connect to our azure server and db
 # change connection string when working with different databases
-# connection_string = os.environ.get("AZURE_DATABASE_URL")
-# app.config["SQLALCHEMY_DATABASE_URI"] = connection_string
-# db = SQLAlchemy(app)  # ORM
+connection_string = os.environ.get("AZURE_DATABASE_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = connection_string
+# Sqlalchemy is a Python SQL toolkit & ORM ->
+# easy to submit SQL queries as well as map objects to table definitions and vice versa
+db = SQLAlchemy(app)  # ORM
+# 3 advantages of working with the ORM driver
+# can read from/work with multiple databases (just change connection string)
+# no raw sql -> autocomplete functions, E.g. NOT ("SELECT * policies...") in string format
+# allows us to manipulate easier to work with datatypes such as lists of dicts (NOT query strings like above)
 
 
 # connect to our azure and create table(s)
 # constructor we are using is from "db.Model"
-# schema for the poliies table
+# schema for the policies table
 class Policy(db.Model):
     __tablename__ = "policies"
-    # automatically creates and assigned value
+    # automatically creates and assigns value
+    # increased performance if you do not do calculations to update id by max id on the python side
+    # if autoincremented on the SQL side it will not have a decrease in preformance as it will remember the last value and update easily
+    # increased security as it is more difficult for people to guess "id" values
+    # easier to merge two tables as their id primary keys will not be the same/consist of duplicates
     id = db.Column(db.String(50), primary_key=True, default=lambda: str(uuid.uuid4()))
-    name = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float(50), nullable=False)
     # give defaults to these values as we or users can update them in future
     poster = db.Column(db.String(255), default="")
-    desc = db.Column(db.String(255), default="")
+    desc = db.Column(db.String(500), default="")
 
     # JSON - Keys (can change names sent to front-end)
+    # class method
+    # dict is also easier to convert to JSON
     def to_dict(self):
         return {
             "id": self.id,
@@ -60,12 +73,11 @@ class Employee(db.Model):
     __tablename__ = "employees"
     # automatically creates and assigns value
     id = db.Column(db.String(50), primary_key=True, default=lambda: str(uuid.uuid4()))
-    name = db.Column(db.String(50), nullable=False)
-    # make unique
-    job_title = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    job_title = db.Column(db.String(100), nullable=False)
     # give defaults to these values as we or users can update them in future
     pic = db.Column(db.String(255), default="")
-    desc = db.Column(db.String(255), default="")
+    desc = db.Column(db.String(500), default="")
 
     # JSON - Keys (can change names sent to front-end)
     # class method
@@ -85,9 +97,9 @@ class User(db.Model):
     __tablename__ = "users"
     # automatically creates and assigns value
     id = db.Column(db.String(50), primary_key=True, default=lambda: str(uuid.uuid4()))
-    name = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     # make unique
-    email = db.Column(db.String(50), unique=True, nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
     # give defaults to these values and we or users can update them in future
     pic = db.Column(db.String(255), default="")
@@ -108,17 +120,18 @@ class User(db.Model):
 
 
 # to test connection
-# try:
-#     with app.app_context():
-# Use text() to explicitly declare your SQL command
-# result = db.session.execute(text("SELECT 1")).fetchall()
-# print("Connection successful:", result)
-# only use create all once and then comment out again so it doesn't try to create tables with each restart of the server
-# it won't cause an error as it only adds if it doesn't exist
-# but always keep it there when in production (for updates)
-# db.create_all()  # easier way to create tables through python after connecting
-# except Exception as e:
-#     print("Error connecting to the database:", e)
+try:
+    with app.app_context():
+        # Use text() to explicitly declare your SQL command
+        result = db.session.execute(text("SELECT 1")).fetchall()
+        print("Connection successful:", result)
+        # only use "create_all" once and then comment out again
+        # so it doesn't try to create tables with each restart of the server
+        # it won't cause an error as it only adds if the table doesn't exist
+        # but always keep "create_all" when in production (for updates)
+        db.create_all()  # easier way to create tables through python after connecting
+except Exception as e:
+    print("Error connecting to the database:", e)
 
 
 # some dummy employee data

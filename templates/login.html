@@ -132,7 +132,7 @@
             <a href="/signup">Don't have an account?</a>
         </div>
         <!-- if we want to refer to the current URL but with different action as POST -->
-        <form class="login-form" action="{{url_for('go_to_profile')}}" action="" method="post">
+        <form class="login-form" action="" method="post">
             <!-- Hidden input field with token as value (CSRF) -->
             {{form.hidden_tag()}}
             <!-- display error(s) from "validate_email"-->
@@ -157,7 +157,9 @@
                 <!-- add "is-invalid" next to "form-control" if there are errors -->
                 {{form.email.label}}: {{form.email(placeholder="Email", class="form-control {{ if form.email.errors 'is-invalid' }}")}}
             </div>
-            {{form.password.label}} {{form.password(placeholder="Password", class="form-control")}}
+            <div class="form-group">
+                {{form.password.label}} {{form.password(placeholder="Password", class="form-control")}}
+            </div>
             {{form.submit(class="btn btn-primary")}}
         </form>
     </div>
