@@ -247,13 +247,6 @@ class LoginForm(FlaskForm):
                 raise ValidationError("Email or password is invalid")
 
 
-# Define a route for the /profile page
-@app.route("/profile/<id>")
-def profile_page(id):
-    profile = User.query.get(id)
-    return render_template("profile.html", profile=profile)
-
-
 # GET - Issue token
 # POST - Verify token
 # new route for login page
