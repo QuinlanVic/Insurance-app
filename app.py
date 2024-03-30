@@ -133,6 +133,34 @@ try:
 except Exception as e:
     print("Error connecting to the database:", e)
 
+# ***** POLICIES *****
+# have to have import blueprints here because by now the db would have been created and
+# all blueprints can import db from app without circular dependencies
+from policies_bp import policies_bp
+
+# registering "policies_bp.py" as a blueprint and add a prefix for the url
+# JSON (For front-end people)
+app.register_blueprint(policies_bp, url_prefix="/policies")
+
+# ***** POLICIESLIST *****
+from policieslist_bp import policieslist_bp
+
+# registering "policieslist_bp.py" as a blueprint and add a prefix for the url
+# view (Python fullstack) -> actually implementing through forms and stuff
+app.register_blueprint(policieslist_bp, url_prefix="/policieslist")
+
+# ***** EMPLOYEES *****
+from employees_bp import employees_bp
+
+# registering "employees_bp.py" as a blueprint and add a prefix for the url
+app.register_blueprint(employees_bp, url_prefix="/employees")
+
+# ***** USERS *****
+from users_bp import users_bp
+
+# registering "users_bp.py" as a blueprint and add a prefix for the url
+app.register_blueprint(users_bp, url_prefix="/users")
+
 
 # testing route for formatting/developing header and footer in "base.html"
 @app.route("/base")
@@ -146,44 +174,6 @@ def home_page():
     return render_template("index.html")
 
 
-# policies page
-@app.route("/policies")
-def policies_page():
-    # policies = json.loads(get_policies())
-    return render_template("policies.html", policies=policies)
-
-
-# one policy entry to test what policy page displays
-policylocal = {
-    "id": 1,
-    "name": "Blue Car Insurance",
-    "price": 500,
-    "poster": "https://c4.wallpaperflare.com/wallpaper/14/17/129/2011-hyundai-i10-wallpaper-preview.jpg",
-    "desc": "Blue Car Insurance is affordable and is targeted at students and young professionals",
-}
-
-
-# policy page
-@app.route("/policies/<id>")
-def policy_page(id):
-    # policy = get_policy(id)
-    # print(type(policy))
-    # search through policies list and find the policy with the specified id (None (default value) if not found)
-    print(id)
-    specific_policy = next(
-        (policy for policy in policies if policy["id"] == int(id)), None
-    )
-    # if policy is not found
-    if specific_policy is None:
-        # result = {"message": "policy not found"}
-        # return a not found message and appropriate status code (json)
-        return "<h1>Error: Policy not found :(</h1>"
-    # otherwise policy has been found so we return a success message and the policy data (json)
-    # result = {"message": "policy successfully found", "data": specific_policy}
-    # return jsonify(result)
-    return render_template("policy.html", policy=specific_policy)
-
-
 # Define a route for the /about URL
 @app.route("/about")
 def about_page():
@@ -194,13 +184,6 @@ def about_page():
 @app.route("/help")
 def help_page():
     return render_template("help.html")
-
-
-# Define a route for the /profile page
-@app.route("/profile/<id>")
-def profile_page(id):
-    profile = get_user(id)
-    return render_template("profile.html", profile=profile)
 
 
 # from + import combo to only import what we need to improve performance
@@ -259,6 +242,13 @@ class LoginForm(FlaskForm):
         if user:
             if user.password != field.data:
                 raise ValidationError("Email or password is invalid")
+
+
+# Define a route for the /profile page
+@app.route("/profile/<id>")
+def profile_page(id):
+    profile = User.query.get(id)
+    return render_template("profile.html", profile=profile)
 
 
 # GET - Issue token
