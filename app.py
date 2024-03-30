@@ -19,7 +19,7 @@ load_dotenv()  # load -> os env (environmental variables)
 app = Flask(__name__)
 
 # secret so we have to provide it in the ".env" file
-app.config["SECRET_KEY"] = os.environ.get("FORM_SECRET_KEY2")  # CSRF token
+app.config["SECRET_KEY"] = os.environ.get("FORM_SECRET_KEY3")  # CSRF token
 
 
 # General Pattern
@@ -27,7 +27,7 @@ app.config["SECRET_KEY"] = os.environ.get("FORM_SECRET_KEY2")  # CSRF token
 
 # connect to our azure server and db
 # change connection string when working with different databases
-connection_string = os.environ.get("AZURE_DATABASE_URL")
+connection_string = os.environ.get("AZURE_DATABASE_URL2")
 app.config["SQLALCHEMY_DATABASE_URI"] = connection_string
 # Sqlalchemy is a Python SQL toolkit & ORM ->
 # easy to submit SQL queries as well as map objects to table definitions and vice versa
