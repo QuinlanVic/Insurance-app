@@ -177,12 +177,15 @@ def home_page():
 # Define a route for the /about URL
 @app.route("/about")
 def about_page():
+    # get all employees to display them on the screen
+    employees = Employee.query.all()
     return render_template("about.html", employees=employees)
 
 
 # Define a route for the /help page
 @app.route("/help")
 def help_page():
+    # do not need to get any data from the server
     return render_template("help.html")
 
 
@@ -271,6 +274,8 @@ def login_page():
         if not specific_user or specific_user.password != form.password.data:
             return render_template("login.html", form=form)
         # otherwise user has logged in successfully
+        # go to homepage when posting from login page
+        # return f"<h1>Welcome back</h1> {specific_user.name}", render_template("index.html")
         return f"<h1>Welcome back, {specific_user.name}"
 
     # only on GET
@@ -305,7 +310,9 @@ def signup_page():
         try:
             db.session.add(new_user)
             db.session.commit()
+            # go to profile page when posting from signup page
             # print("Profile page", name, email, password)
+            # return render_template("profile.html", user=new_user)
             return "<h1> Registration successful </h1>", 201
         # now send them to new profile page
         # return render_template("profile.html", new_user.to_dict())
@@ -316,45 +323,6 @@ def signup_page():
     # only on GET
     # then use "form" in signup page
     return render_template("signup.html", form=form)
-
-
-# go to homepage when posting from login page
-@app.route("/", methods=["POST"])
-def go_to_index():
-    # have to get values from form via keys
-    email = request.form.get("email")
-    password = request.form.get("password")
-    print("Profile page", email, password)
-    return "<h1>Welcome back</h1>", render_template("index.html")
-
-
-# go to profile page when posting from signup page
-@app.route("/profile", methods=["POST"])
-def go_to_profile():
-    # have to get values from form via keys
-    name = request.form.get("name")
-    email = request.form.get("email")
-    password = request.form.get("password")
-    # have to create a new user and add them to user list
-    new_user = {
-        "name": name,
-        "email": email,
-        password: "password",
-        "pic": "",
-        "policy-id": 0,
-    }
-
-    user_ids = [user["id"] for user in users]
-    # print(user_ids) # check if you have got all the ids successfully
-    max_id = max(user_ids)
-    # print(max_id) # check if you have max id sucessfully
-    new_user["id"] = max_id + 1
-    # print(new_user) # check if new user has been crafted successfully
-
-    # add to users list of dict
-    users.append(new_user)
-    print("Profile page", email, password)
-    return render_template("profile.html", user=new_user)
 
 
 # store tokens in browser (local storage or cookies) (gets given after signing up/logging in)
