@@ -20,7 +20,7 @@ def profile_page(id):
 # ***** FORM ACTION CRUD OPERATIONS *****
 
 
-# delete user profile (after clicking button)
+# delete user profile from db (after clicking button)
 @profile_bp.route("/delete", methods=["POST"])
 def delete_user_by_id():
     # get name value from form which contains the id value
@@ -100,6 +100,8 @@ def update_profile():
                 # now update those values
                 setattr(specific_user, key, value)
         db.session.commit()
+        # now take them back to the profile page
+        # return f"{specific_user.name} successfully updated", render_template("profile.html")
         return f"{specific_user.name} successfully updated"
     except Exception as e:
         return f"<h1>An error occured: {str(e)}"

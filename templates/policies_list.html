@@ -165,6 +165,7 @@
         </div>
     </div>
     <h1 class = "heading">Policies</h1>
+    <a href="/movieslist/add"><button class="addbut" type="submit">Add Movie</button></a>
     <div class="all-policies">
         {%for policy in policies%}
         <div class="policy-container">
@@ -176,6 +177,14 @@
             <p class="policy-desc"> {{policy["desc"]}}</p>
             <div class="policy-action">
                 <a href="/policieslist/{{policy['id']}}">Read More ...</a>
+                <form class="addpolicy-form" action="{{url_for('policieslist.update_policy_page')}}" method="post">
+                    <input name= "policy" type="text" value="{{policy}}" hidden>
+                    <button type="submit">Update</button>
+                </form>
+                <form class="addpolicy-form" action="{{url_for('policieslist.delete_policy_by_id')}}" method="post">
+                    <input name= "policy_id" type="text" value="{{policy.id}}" hidden>
+                    <button type="submit">Delete</button>
+                </form>
             </div>
         </div>
         {% endfor %}
