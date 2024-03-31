@@ -143,9 +143,9 @@
     <div class="navbar">
         <div class="leftbar">
             <img class = "logo" src="https://freesvg.org/img/1413121417.png"/>
-            <a class = "page-link" href="/"> Home</a>
+            <a class = "page-link" href="/">Home</a>
             <a class = "page-link" href="/policieslist">Policies</a>
-            <a class = "page-link active" href="/about"> About</a>
+            <a class = "page-link active" href="/aboutus">About</a>
             <a class = "page-link" href="/help">Help</a>
         </div>
         <div class="rightbar">
@@ -170,16 +170,16 @@
     </div> -->
     <h2 class = "heading">CoolWater's Management Team</h2>
     {%for employee in employees%}
-    <div class = "employee-container">
-        <!-- mustache -->
-        <img class= "pic-about" src="{{employee['pic']}}", alt="Profile picture"> 
-        <p class = "employee-msg">
-            <span class = "employee-name">
-                {{employee["name"]}} 
-        </span> - <span class = "job">{{employee["job-title"]}}</span>
-        </p> 
-        <p class = "employee-desc">{{employee["desc"]}}</p>
-    </div>
+        <div class = "employee-container">
+            <!-- mustache -->
+            <img class= "pic-about" src="{{employee['pic']}}", alt="Profile picture"> 
+            <p class = "employee-msg">
+                <span class = "employee-name">
+                    {{employee["name"]}} 
+            </span> - <span class = "job">{{employee["job_title"]}}</span>
+            </p> 
+            <p class = "employee-desc">{{employee["desc"]}}</p>
+        </div>
     {% endfor %}
      <!-- footer :) -->
      <div class="footer">

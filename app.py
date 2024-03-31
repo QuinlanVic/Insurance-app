@@ -174,12 +174,14 @@ def home_page():
     return render_template("index.html")
 
 
-# Define a route for the /about URL
-@app.route("/about")
+# Define a route for the /aboutus URL
+@app.route("/aboutus")
 def about_page():
     # get all employees to display them on the screen
     employees = Employee.query.all()
-    return render_template("about.html", employees=employees)
+    return render_template("aboutus.html", employees=employees)
+    # testing issue
+    # return render_template("aboutus.html")
 
 
 # Define a route for the /help page
