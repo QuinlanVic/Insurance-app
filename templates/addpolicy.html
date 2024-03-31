@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .addpolicy-form {
+            display: grid;
+            gap: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Have to use GET or POST as these 2 methods are the only 2 supported by forms -->
+    <!-- POST (more secure) -->
+    <form class="addpolicy-form" action="{{url_for('policieslist.new_policy_list')}}" method="post">
+        <!-- input element to accept user input -->
+        <!-- name = key for your value -->
+        <input name="name" type="text" placeholder="Name"/>
+        <input name="price" type="text" placeholder="Price"/>
+        <input name="poster" type="text" placeholder="Poster"/>
+        <input name="desc" type="text" placeholder="Description"/>
+        <button type="submit">Add policy</button>
+    </form>
+</body>
+</html>

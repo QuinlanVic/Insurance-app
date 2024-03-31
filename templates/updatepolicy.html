@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .uppolicy-form {
+            display: grid;
+            gap: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Have to use GET or POST as these 2 methods are the only 2 supported by forms -->
+    <!-- POST (more secure) -->
+    <form class="uppolicy-form" action="{{url_for('policieslist.update_policy_list')}}" method="post">
+        <!-- input element to accept user input -->
+        <!-- name = key for your value -->
+        <input hidden name="id" type="text" value="{{policy['id']}}"/>
+        <input name="name" type="text" value="{{policy['name']}}"/>
+        <input name="poster" type="text" value="{{policy['poster']}}"/>        
+        <input name="price" type="text" value="{{policy['price']}}"/>
+        <input name="desc" type="text" value="{{policy['desc']}}"/>
+        <button type="submit">Update policy</button>
+    </form>
+</body>
+</html>
