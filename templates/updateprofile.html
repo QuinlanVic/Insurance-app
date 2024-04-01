@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .upuser-form {
+            display: grid;
+            gap: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Have to use GET or POST as these 2 methods are the only 2 supported by forms -->
+    <!-- POST (more secure) -->
+    <form class="upuser-form" action="{{url_for('profile.update_profile')}}" method="post">
+        <!-- input element to accept user input -->
+        <!-- name = key for your value -->
+        <input hidden name="id" type="text" value="{{user['id']}}"/>
+        <input name="name" type="text" value="{{user['name']}}"/>
+        <input name="email" type="text" value="{{user['email']}}"/>        
+        <input name="password" type="text" value="{{user['password']}}"/>
+        <input name="pic" type="text" value="{{user['pic']}}"/>
+        <input name="policy_id" type="text" value="{{user['policy_id']}}"/>
+        <button type="submit">Update profile</button>
+    </form>
+</body>
+</html>

@@ -129,35 +129,37 @@
             <!-- <a class = "page-link" href="/profile">Profile</a> -->
         </div>
     </div>
-    <h1 class="heading">Sign Up</h1>
-    <div class="q">
-        <a href="/login" >Already have an account?</a>
+    <div class="container">
+        <h1 class="heading">Sign Up</h1>
+        <div class="q">
+            <a href="/login" >Already have an account?</a>
+        </div>
+        <!-- if we want to refer to the current URL but with different action as POST -->
+        <form class="signup-form" action="" method="POST">
+            <!-- Hidden input field with token as value (CSRF) -->
+            {{form.hidden_tag()}}
+            <!-- display error(s) from "validate_email"-->
+            {% if form.email.errors %}
+
+                {% for error in form.email.errors %}
+                    <div style="color:red">{{error}}</div>
+                {% endfor %}
+
+            {% endif %}
+
+            <!-- add labels so users always know what they must type in -->
+            <div class="form-group">
+                {{form.name.label}}: {{form.name(placeholder="Name", class="form-control")}}
+            </div>
+            <div class="form-group">
+                {{form.email.label}}: {{form.email(placeholder="Email", class="form-control")}}
+            </div>
+            <div class="form-group">
+                {{form.password.label}}: {{form.password(placeholder="Password", class="form-control")}}
+            </div>
+            {{form.submit(class="btn btn-primary")}}
+        </form>
     </div>
-    <!-- if we want to refer to the current URL but with different action as POST -->
-    <form class="signup-form" action="" method="POST">
-        <!-- Hidden input field with token as value (CSRF) -->
-        {{form.hidden_tag()}}
-        <!-- display error(s) from "validate_email"-->
-        {% if form.email.errors %}
-
-            {% for error in form.email.errors %}
-                <div style="color:red">{{error}}</div>
-            {% endfor %}
-
-        {% endif %}
-
-        <!-- add labels so users always know what they must type in -->
-        <div class="form-group">
-            {{form.name.label}}: {{form.name(placeholder="Name")}}
-        </div>
-        <div class="form-group">
-            {{form.email.label}}: {{form.email(placeholder="Email")}}
-        </div>
-        <div class="form-group">
-            {{form.password.label}} {{form.password(placeholder="Password")}}
-        </div>
-        {{form.submit()}}
-    </form>
     <!-- footer :) -->
     <div class="footer">
         <div class="copyright">

@@ -52,8 +52,8 @@ class Policy(db.Model):
     name = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float(50), nullable=False)
     # give defaults to these values as we or users can update them in future
-    poster = db.Column(db.String(255), default="")
-    desc = db.Column(db.String(500), default="")
+    poster = db.Column(db.String(255), default="", nullable=False)
+    desc = db.Column(db.String(500), default="", nullable=False)
 
     # JSON - Keys (can change names sent to front-end)
     # class method
@@ -76,8 +76,8 @@ class Employee(db.Model):
     name = db.Column(db.String(100), nullable=False)
     job_title = db.Column(db.String(100), nullable=False)
     # give defaults to these values as we or users can update them in future
-    pic = db.Column(db.String(255), default="")
-    desc = db.Column(db.String(500), default="")
+    pic = db.Column(db.String(255), default="", nullable=False)
+    desc = db.Column(db.String(500), default="", nullable=False)
 
     # JSON - Keys (can change names sent to front-end)
     # class method
@@ -102,8 +102,8 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
     # give defaults to these values and we or users can update them in future
-    pic = db.Column(db.String(255), default="")
-    policy_id = db.Column(db.String(50), default="0")
+    pic = db.Column(db.String(255), default="", nullable=False)
+    policy_id = db.Column(db.String(50), default="0", nullable=False)
 
     # JSON - Keys (can change names sent to front-end)
     # class method
@@ -116,6 +116,30 @@ class User(db.Model):
             "password": self.password,
             "pic": self.pic,
             "policy_id": self.policy_id,
+        }
+
+
+# create new Model for Article table schema
+class Article(db.Model):
+    __tablename__ = "articles"
+    # automatically creates and assigns value
+    id = db.Column(db.String(50), primary_key=True, default=lambda: str(uuid.uuid4()))
+    title = db.Column(db.String(100), nullable=False)
+    author = db.Column(db.String(100), nullable=False)
+    # give defaults to these values and we or authors can update them in future
+    poster = db.Column(db.String(255), default="", nullable=False)
+    desc = db.Column(db.String(500), default="", nullable=False)
+
+    # JSON - Keys (can change names sent to front-end)
+    # class method
+    # dict is also easier to convert to JSON
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "author": self.author,
+            "poster": self.poster,
+            "desc": self.desc,
         }
 
 
@@ -161,6 +185,24 @@ from users_bp import users_bp
 # registering "users_bp.py" as a blueprint and add a prefix for the url
 app.register_blueprint(users_bp, url_prefix="/users")
 
+# ***** ARTICLES *****
+from articles_bp import articles_bp
+
+# registering "articles_bp.py" as a blueprint and add a prefix for the url
+app.register_blueprint(articles_bp, url_prefix="/articles")
+
+# ***** ARTICLESLIST *****
+from articleslist_bp import articleslist_bp
+
+# registering "articleslist_bp.py" as a blueprint and add a prefix for the url
+app.register_blueprint(articleslist_bp, url_prefix="/articleslist")
+
+# ***** ARTICLESLIST *****
+from profile_bp import profile_bp
+
+# registering "articleslist_bp.py" as a blueprint and add a prefix for the url
+app.register_blueprint(profile_bp, url_prefix="/profile")
+
 
 # testing route for formatting/developing header and footer in "base.html"
 @app.route("/base")
@@ -169,9 +211,14 @@ def base_page():
 
 
 # root URL
+# index page with articles
 @app.route("/")  # HOF
-def home_page():
-    return render_template("index.html")
+def index_page():
+    article_list = Article.query.all()  # SELECT * FROM articles | article_list iterator
+    # print(type(article_list)) # list
+    # print(type(article_list[0])) # app.article
+    data = [article.to_dict() for article in article_list]  # convert to a list of dict
+    return render_template("index.html", articles=data)
 
 
 # Define a route for the /aboutus URL

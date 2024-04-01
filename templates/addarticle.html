@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .addarticle-form {
+            display: grid;
+            gap: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Have to use GET or POST as these 2 methods are the only 2 supported by forms -->
+    <!-- POST (more secure) -->
+    <form class="addarticle-form" action="{{url_for('articleslist.new_article_list')}}" method="post">
+        <!-- input element to accept user input -->
+        <!-- name = key for your value -->
+        <input name="title" type="text" placeholder="Title"/>
+        <input name="author" type="text" placeholder="Author"/>
+        <input name="poster" type="text" placeholder="Poster"/>
+        <input name="desc" type="text" placeholder="Description"/>
+        <button type="submit">Add article</button>
+    </form>
+</body>
+</html>

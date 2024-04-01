@@ -39,6 +39,51 @@
             background: skyblue;
             margin: 0;
         }
+        .all-articles {
+            /* display: grid; */
+            /* grid-template-columns: repeat(3, 1fr); */
+            display: flex;
+            /* gap: 16px; */
+            row-gap: 16px;
+            column-gap: 16px;
+            justify-content: space-around;
+            flex-wrap: wrap; 
+        }
+        .heading {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            font-size: 48px;
+            text-align: center;
+        }
+        .article-container {
+            /* display: grid;
+            row-gap: 16px; */
+            width: 640px;
+        }
+        .article-poster {
+            /* max-height: 145px; */
+            /* aspect-ratio: 2 / 1; */
+            height: 460px;
+            width: 100%;
+            object-fit: cover;
+            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+            border-radius: 12px;
+        }
+        .title-author {
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .article-desc {
+            font-size: 20px;
+            line-height: 1.5;
+        }
+        .article-action {
+            display: flex;
+            justify-content: space-between;
+        }
         .footer {
             background: deepskyblue;
             display: flex;
@@ -119,7 +164,31 @@
             <!-- <a class = "page-link" href="/profile">Profile</a> -->
         </div>
     </div>
-    <h1>Welcome!</h1>
+    <h1 class="heading">Welcome!</h1>
+    <a href="/articleslist/add"><button class="addbut" type="submit">Add Article</button></a>
+    <div class="all-articles">
+        {%for article in articles%}
+        <div class="article-container">
+            <img class = "article-poster" src="{{article['poster']}}" alt="article poster">
+            <div class="title-author">
+                <p class="title">{{article["title"]}}</p>
+                <p class="author">{{article["author"]}}</p>
+            </div>
+            <p class="article-desc"> {{article["desc"]}}</p>
+            <div class="article-action">
+                <a href="/articleslist/{{article['id']}}">Read More ...</a>
+                <form class="addarticle-form" action="{{url_for('articleslist.update_article_page')}}" method="post">
+                    <input name= "article" type="text" value="{{article}}" hidden>
+                    <button type="submit">Update</button>
+                </form>
+                <form class="addarticle-form" action="{{url_for('articleslist.delete_article_by_id')}}" method="post">
+                    <input name= "article_id" type="text" value="{{article.id}}" hidden>
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
     <!-- footer :) -->
     <div class="footer">
         <div class="copyright">

@@ -10,11 +10,31 @@ profile_bp = Blueprint("profile", __name__)
 # Defines View part of web application
 
 
-# Define a route for the /profile page
+# Define a route for the profile page
 @profile_bp.route("/<id>")
 def profile_page(id):
     profile = User.query.get(id)
-    return render_template("profile.html", profile=profile)
+    if profile is None:
+        return "<h1>Profile not found</h1>"
+    return render_template("profile.html", profile=profile.to_dict())
+
+
+# /profile/update -> Update profile form (existing fields) -> Submit -> /profile/id
+# Has to be post to pass the data via body ("GET" uses URL)
+# take you to update form with data after manipulation
+@profile_bp.route("/update", methods=["POST"])
+def update_profile_page():
+    # get the user
+    user = request.form.get("profile")
+    print(user)
+    print(type(user))
+    # funny error as JSON only supports single quotes LOLOLOLOLOL
+    user_json = user.replace("'", '"')
+    # convert into a dict
+    user_dict = json.loads(user_json)
+    print(type(user_dict))
+    # now render the update profile page with user information
+    return render_template("updateprofile.html", user=user_dict)
 
 
 # ***** FORM ACTION CRUD OPERATIONS *****
@@ -24,7 +44,7 @@ def profile_page(id):
 @profile_bp.route("/delete", methods=["POST"])
 def delete_user_by_id():
     # get name value from form which contains the id value
-    id = request.form.get("user_id")
+    id = request.form.get("profile_id")
     # print(id) # test if we found the correct id value
     # get the specific user
     user = User.query.get(id)
@@ -50,23 +70,6 @@ def delete_user_by_id():
         return f"<h1>An error occured: {str(e)}</h1>", 500
 
 
-# /profile/update -> Update profile form (existing fields) -> Submit -> /profile
-# Has to be post to pass the data via body ("GET" uses URL)
-# take you to update form with data after manipulation
-@profile_bp.route("/update", methods=["POST"])
-def update_profile_page():
-    user = request.form.get("user")
-    print(user)
-    print(type(user))
-    # funny error as JSON only supports single quotes LOLOLOLOLOL
-    user_json = user.replace("'", '"')
-    # convert into a dict
-    user_dict = json.loads(user_json)
-    print(type(user_dict))
-    # now render the update profile page with user information
-    return render_template("update_profile.html", user=user_dict)
-
-
 # update user
 # UPDATE PROFILE FORM TO SQL DATABASE NOW NOT LOCAL
 # has to be a different url or it will do the other "/update" above as
@@ -75,16 +78,16 @@ def update_profile_page():
 def update_profile():
     user_id = request.form.get("id")
     user_name = request.form.get("name")
-    user_poster = request.form.get("poster")
-    user_rating = request.form.get("rating")
-    user_summary = request.form.get("summary")
-    user_trailer = request.form.get("trailer")
+    user_email = request.form.get("email")
+    user_password = request.form.get("password")
+    user_pic = request.form.get("pic]")
+    user_policy_id = request.form.get("policy_id")
     update_data = {
         "name": user_name,
-        "poster": user_poster,
-        "rating": user_rating,
-        "summary": user_summary,
-        "trailer": user_trailer,
+        "email": user_email,
+        "password": user_password,
+        "pic": user_pic,
+        "policy_id": user_policy_id,
     }
     specific_user = User.query.get(user_id)
     if specific_user is None:
