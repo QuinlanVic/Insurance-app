@@ -156,7 +156,7 @@
         <div class="leftbar">
             <img class = "logo" src="https://freesvg.org/img/1413121417.png"/>
             <a class = "page-link active" href="/">Home</a>
-            <a class = "page-link" href="/articleslist">articles</a>
+            <a class = "page-link" href="/policieslist">Policies</a>
             <a class = "page-link" href="/aboutus">About</a>
             <a class = "page-link" href="/help">Help</a>
         </div>
@@ -177,6 +177,7 @@
                 <p class="author">{{article["author"]}}</p>
             </div>
             <p class="article-desc"> {{article["desc"]}}</p>
+            <!-- if admin see this -->
             <div class="article-action">
                 <a href="/">Back to home page ...</a>
                 <form class="addarticle-form" action="{{url_for('articleslist.update_article_page')}}" method="post">

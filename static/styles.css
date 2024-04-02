@@ -1,0 +1,145 @@
+/* Navbar styling */
+#navcon {
+    background: deepskyblue;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+}
+.nav-link {
+    text-align: center;
+    color: ghostwhite;
+    padding: 0px 16px;
+    text-decoration: none;
+    font-size: 24px;
+}
+.nav-link:hover {
+    background: whitesmoke;
+    color: black;
+}
+.nav-link:active {
+    background: black;
+    color: whitesmoke;
+}
+.nav-link.active {
+    background: black;
+    color: whitesmoke;
+}
+
+
+/* footer styling */
+.footer {
+    background: deepskyblue;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.copyright {
+    flex: 1 1 auto;
+    flex-basis: 100%;
+    flex-grow: 0;
+    max-width: 100%; 
+}
+.copyright-text {
+    color: ghostwhite;
+    text-align: center;
+}
+.socials {
+    flex: 1 1 auto;
+    flex-basis: 100%;
+    flex-grow: 0;
+    max-width: 100%; 
+}
+.three-socials {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+}
+/* style all font awesome icons */
+.fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+}
+/* psuedo class "hover" for nice interaction */
+.fa:hover {
+    opacity: 0.7;
+}
+/* set specific colours for each social media platform icon */
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+.fa-instagram {
+    /* fancy background for instagram */
+    background: radial-gradient(circle farthest-corner at 35% 90%, #fec564, transparent 50%), radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%), radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 20% -50%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 60% -20%, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent), linear-gradient(#6559ca, #bc318f 30%, #e33f5f 50%, #f77638 70%, #fec66d 100%);
+    color: white;
+}
+.fa-twitter {
+    background: #55ACEE;
+    color: white;
+}
+.logo {
+    height: 32px;
+    width: 32px;
+    
+}
+
+
+/* Index page styling */
+.main-body {
+    font-family: sans-serif;
+    background: skyblue;
+    margin: 0;
+}
+.all-articles {
+    /* display: grid; */
+    /* grid-template-columns: repeat(3, 1fr); */
+    display: flex;
+    /* gap: 16px; */
+    row-gap: 16px;
+    column-gap: 16px;
+    justify-content: space-around;
+    flex-wrap: wrap; 
+}
+.heading-index {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    font-size: 48px;
+    text-align: center;
+}
+.article-container {
+    /* display: grid;
+    row-gap: 16px; */
+    width: 640px;
+}
+.article-poster {
+    /* max-height: 145px; */
+    /* aspect-ratio: 2 / 1; */
+    height: 460px;
+    width: 100%;
+    object-fit: cover;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    border-radius: 12px;
+}
+.title-author {
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.article-desc {
+    font-size: 20px;
+    line-height: 1.5;
+}
+.article-action {
+    display: flex;
+    justify-content: space-between;
+}

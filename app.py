@@ -32,10 +32,12 @@ app.config["SQLALCHEMY_DATABASE_URI"] = connection_string
 # Sqlalchemy is a Python SQL toolkit & ORM ->
 # easy to submit SQL queries as well as map objects to table definitions and vice versa
 db = SQLAlchemy(app)  # ORM
-# 3 advantages of working with the ORM driver
+# 3 advantages of working with the ORM
+# convert to raw sql query
 # can read from/work with multiple databases (just change connection string)
 # no raw sql -> autocomplete functions, E.g. NOT ("SELECT * policies...") in string format
 # allows us to manipulate easier to work with datatypes such as lists of dicts (NOT query strings like above)
+# pyodbc = driver to connect to database
 
 
 # connect to our azure and create table(s)
@@ -140,6 +142,29 @@ class Article(db.Model):
             "author": self.author,
             "poster": self.poster,
             "desc": self.desc,
+        }
+
+
+# create new Model for Request table schema
+class Request(db.Model):
+    __tablename__ = "requests"
+    # automatically creates and assigns value
+    id = db.Column(db.String(50), primary_key=True, default=lambda: str(uuid.uuid4()))
+    name = db.Column(db.String(100), nullable=False)
+    phone_num = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(255), nullable=False)
+    msg = db.Column(db.String(500), nullable=False)
+
+    # JSON - Keys (can change names sent to front-end)
+    # class method
+    # dict is also easier to convert to JSON
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "phone_num": self.phone_num,
+            "email": self.email,
+            "msg": self.msg,
         }
 
 
