@@ -1,5 +1,5 @@
 /* Navbar styling */
-#navcon {
+nav.navbar.navbar-expand-lg.navbar-light.bg-light{
     background: deepskyblue;
     overflow: hidden;
     display: flex;
@@ -143,3 +143,42 @@
     display: flex;
     justify-content: space-between;
 }
+
+
+/* <!-- nav bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img class = "logo" src="https://freesvg.org/img/1413121417.png"/>
+    <a class="navbar-brand" href="/">CoolWater</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <!-- <div class="leftbar"> -->
+            <!-- <img class = "logo" src="https://freesvg.org/img/1413121417.png"/> -->
+            <!-- <a class = "nav-link active" href="/">Home</a> -->
+            <a class = "nav-link" href="/policieslist">Policies</a>
+            <a class = "nav-link" href="/aboutus">About</a>
+            <a class = "nav-link" href="/help">Help</a>
+            <!-- <a class="nav-link active" href="/profile"
+            >Profile <span class="sr-only">(current)</span></a
+            > -->
+        <!-- </div> -->
+        <!-- <div class="rightbar"> -->
+        <!-- if not logged in -->
+            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" href="/signup">Sign Up</a>
+        <!-- else -->
+            <!-- <a class = "page-link" href="/profile">Profile</a> -->
+        <!-- </div> -->
+      </div>
+    </div>
+  </nav> */
