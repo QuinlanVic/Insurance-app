@@ -9,9 +9,10 @@
 <!-- Load external CSS-->
 <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}"> 
 </head>
-<body>
+<body id="page-body">
     <!-- nav = Semantic element -->
     <!-- navbar (REBORN) -->
+    <!-- the only issue is that the page-link actives are not working -->
     <div class="navbar">
         <div class="leftbar">
             <img class = "logo" src="https://freesvg.org/img/1413121417.png"/>
@@ -25,7 +26,7 @@
             <a class = "page-link" href="/signup">Sign Up</a> 
             <a class = "page-link" href="/login">Login</a>
             <!-- else -->
-            <a class = "page-link" href="/profile">Profile</a>
+            <!-- <a class = "page-link" href="/profile">Profile</a> -->
         </div>
     </div>
     <!-- content of page -->
