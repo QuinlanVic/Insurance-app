@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, request
 
 from app import User, db
 
+from flask_login import login_required
+
 import json
 
 profile_bp = Blueprint("profile", __name__)
@@ -12,6 +14,7 @@ profile_bp = Blueprint("profile", __name__)
 
 # Define a route for the profile page
 @profile_bp.route("/<id>")
+@login_required
 def profile_page(id):
     profile = User.query.get(id)
     if profile is None:
@@ -23,6 +26,7 @@ def profile_page(id):
 # Has to be post to pass the data via body ("GET" uses URL)
 # take you to update form with data after manipulation
 @profile_bp.route("/update", methods=["POST"])
+@login_required
 def update_profile_page():
     # get the user
     user = request.form.get("profile")
@@ -42,6 +46,7 @@ def update_profile_page():
 
 # delete user profile from db (after clicking button)
 @profile_bp.route("/delete", methods=["POST"])
+@login_required
 def delete_user_by_id():
     # get name value from form which contains the id value
     id = request.form.get("profile_id")
@@ -75,6 +80,7 @@ def delete_user_by_id():
 # has to be a different url or it will do the other "/update" above as
 # it also uses a POST method because it has to for passing data via body ("GET" uses URL)
 @profile_bp.route("/update/db", methods=["POST"])
+@login_required
 def update_profile():
     user_id = request.form.get("id")
     user_name = request.form.get("name")
