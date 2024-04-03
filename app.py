@@ -102,3 +102,9 @@ from routes.profile_bp import profile_bp
 
 # registering "articleslist_bp.py" as a blueprint and add a prefix for the url
 app.register_blueprint(profile_bp, url_prefix="/profile")
+
+# ***** LOGINANDSIGNUP *****
+from routes.user_bp import user_bp
+
+# registering "user_bp.py" as a blueprint
+app.register_blueprint(user_bp)
