@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request
 
-from app import User, db
+from models.user import User
+from extensions import db
 
 from flask_login import login_required
 

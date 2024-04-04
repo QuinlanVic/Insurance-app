@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request
 
-from app import Article, db
+from models.article import Article
+from extensions import db
 
 import json
 

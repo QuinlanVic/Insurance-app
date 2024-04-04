@@ -1,12 +1,15 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
 
 import os
 from dotenv import load_dotenv
-import uuid
 
-from flask_wtf import FlaskForm
+from extensions import db
+
+from flask_login import LoginManager
+
+login_manager = LoginManager()
 
 # CONNECT TO MSSM Database
 # All to keep away private passwords and stuff away from the public via
@@ -25,13 +28,15 @@ app.config["SECRET_KEY"] = os.environ.get("FORM_SECRET_KEY3")  # CSRF token
 # General Pattern
 # mssql+pyodbc://<username>:<password>@<dsn_name>?driver=<driver_name>
 
-# connect to our azure server and db
+# connect to our local server and db
 # change connection string when working with different databases
-connection_string = os.environ.get("AZURE_DATABASE_URL2")
+connection_string = os.environ.get("LOCAL_DATABASE_URL2")
 app.config["SQLALCHEMY_DATABASE_URI"] = connection_string
+
+db.init_app(app)
 # Sqlalchemy is a Python SQL toolkit & ORM ->
 # easy to submit SQL queries as well as map objects to table definitions and vice versa
-db = SQLAlchemy(app)  # ORM
+# db = SQLAlchemy(app)  # ORM
 # 3 advantages of working with the ORM
 # convert to raw sql query
 # can read from/work with multiple databases (just change connection string)
@@ -43,19 +48,12 @@ db = SQLAlchemy(app)  # ORM
 # connect to our azure and create table(s)
 # constructor we are using is from "db.Model"
 
-# to test connection
-try:
-    with app.app_context():
-        # Use text() to explicitly declare your SQL command
-        result = db.session.execute(text("SELECT 1")).fetchall()
-        print("Connection successful:", result)
-        # only use "create_all" once and then comment out again
-        # so it doesn't try to create tables with each restart of the server
-        # it won't cause an error as it only adds if the table doesn't exist
-        # but always keep "create_all" when in production (for updates)
-        db.create_all()  # easier way to create tables through python after connecting
-except Exception as e:
-    print("Error connecting to the database:", e)
+
+# ***** MISCELLANEOUS ROUTES *****
+from routes.main_bp import main_bp
+
+# registering "main_bp.py" as a blueprint
+app.register_blueprint(main_bp)
 
 # ***** POLICIES *****
 # have to have import blueprints here because by now the db would have been created and
@@ -108,3 +106,20 @@ from routes.user_bp import user_bp
 
 # registering "user_bp.py" as a blueprint
 app.register_blueprint(user_bp)
+
+
+# to test connection
+try:
+    with app.app_context():
+        # Use text() to explicitly declare your SQL command
+        result = db.session.execute(text("SELECT 1")).fetchall()
+        print("Connection successful:", result)
+        # only use "create_all" once and then comment out again
+        # so it doesn't try to create tables with each restart of the server
+        # it won't cause an error as it only adds if the table doesn't exist
+        # but always keep "create_all" when in production (for updates)
+        # delete and then recreate tables
+        db.drop_all()
+        db.create_all()  # easier way to create tables through python after connecting
+except Exception as e:
+    print("Error connecting to the database:", e)

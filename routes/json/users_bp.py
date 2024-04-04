@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 
-from app import User, db
+from models.user import User
+from extensions import db
 
 # ********** THESE ARE FOR JSON REQUESTS BY FRONT-END DEVELOPERS **********
 
