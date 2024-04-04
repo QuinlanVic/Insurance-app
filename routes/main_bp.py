@@ -40,7 +40,16 @@ class QuoteForm(FlaskForm):
             ),
         ],
     )
-    price = DecimalField("price", validators=[InputRequired()])
+    price = DecimalField(
+        "price",
+        validators=[
+            InputRequired(),
+            NumberRange(
+                min=0,
+                message=f"price must be positive",
+            ),
+        ],
+    )
     submit = SubmitField("Calculate Quote")
 
 
