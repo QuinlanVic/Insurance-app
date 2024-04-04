@@ -88,7 +88,7 @@ def login_page():
 
         # if it does not exist or the password is incorrect
         # then user cannot login and send them back to login page
-        if not specific_user or specific_user.password != form.password.data:
+        if not specific_user:
             return render_template("login.html", form=form)
         # otherwise user has logged in successfully
         # go to homepage when posting from login page

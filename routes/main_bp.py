@@ -1,11 +1,37 @@
 # blueprint for miscallaneous routes/pages
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, url_for, redirect, flash
 from flask_login import login_required
+
+from flask_wtf import FlaskForm
+from extensions import db
 
 from models.article import Article
 from models.employee import Employee
 
 main_bp = Blueprint("main", __name__)
+
+
+# from + import combo to only import what we need to improve performance
+from wtforms import (
+    StringField,
+    PasswordField,
+    SubmitField,
+    EmailField,
+    IntegerField,
+    DecimalField,
+)
+from wtforms.validators import InputRequired, Length, ValidationError, NumberRange
+
+from flask_login import login_user, logout_user, login_required
+
+from datetime import datetime
+
+
+# signup validation
+class QuoteForm(FlaskForm):
+    year = IntegerField("year", validators=[InputRequired()])
+    price = DecimalField("price", validators=[InputRequired()])
+    submit = SubmitField("Calculate Quote")
 
 
 # testing route for formatting/developing header and footer in "base.html"
@@ -40,3 +66,29 @@ def about_page():
 def help_page():
     # do not need to get any data from the server
     return render_template("help.html")
+
+
+# define a route for /getquote page
+@main_bp.route("/getquote", methods=["GET", "POST"])
+def get_quote_page():
+    form = QuoteForm()
+    # only on POST (when user is logging in)
+    if form.validate_on_submit():
+
+        # go back to quote page
+        # url_has_allowed_host_and_scheme should check if the url is safe
+        # for redirects, meaning it matches the request host.
+        # if not url_has_allowed_host_and_scheme(next, request.host):
+        #     return abort(400)
+        cover = 50000
+        premium = 500
+        flash(
+            "We can offer you R"
+            + f"{cover}"
+            + " in cover and you would pay R"
+            + f"{premium}"
+            + " per month :)"
+        )
+        return render_template("getquote.html", form=form)
+    # Only on GET - use form instance in "getquote" page
+    return render_template("getquote.html", form=form)

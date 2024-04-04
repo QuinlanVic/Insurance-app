@@ -20,6 +20,7 @@
             <a class = "page-link" href="/policieslist">Policies</a>
             <a class = "page-link" href="/aboutus">About</a>
             <a class = "page-link" href="/help">Help</a>
+            <a class = "page-link" href="/getquote">Get a Quote</a>
         </div>
         <div class="rightbar">
             <!-- if -->
@@ -29,6 +30,15 @@
             <!-- <a class = "page-link" href="/profile">Profile</a> -->
         </div>
     </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          <ul class=flashes>
+          {% for message in messages %}
+              <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+      {% endif %}
+    {% endwith %}
     <!-- content of page -->
     {% block content %}
     {% endblock %}
