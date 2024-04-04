@@ -3,21 +3,21 @@ employees = [
     {
         "id": 1,
         "name": "Paul Flex",
-        "job-title": "CEO",
+        "job_title": "CEO",
         "pic": "https://t4.ftcdn.net/jpg/06/35/15/47/360_F_635154757_zU5ZxxZe3Vs0hrrOQ9WBgNgX8s4Cw19s.jpg",
         "desc": "Paul Flex is CoolWater's Chief Executive Officer",
     },
     {
         "id": 2,
         "name": "Sarah Blue",
-        "job-title": "CFO",
+        "job_title": "CFO",
         "pic": "https://t4.ftcdn.net/jpg/06/12/73/89/360_F_612738927_LIcFCiKHQhHq9R1QhkVRKvT6RelYUmgv.jpg",
         "desc": "Sarah Bleu is CoolWater's Chief Financial Officer",
     },
     {
         "id": 3,
         "name": "Mandla Ngcobo",
-        "job-title": "CHRO",
+        "job_title": "CHRO",
         "pic": "https://www.goodthingsguy.com/wp-content/uploads/2020/07/vusi-thembekwayo-biography-age-net-worth-wife-2.jpg",
         "desc": "Mandla Ngcobo is Coolwater's Chief Human Resources Officer",
     },
@@ -93,3 +93,10 @@ users = [
         "policy-id": 4,
     },
 ]
+
+# articles dummy data
+# id	title	author	poster	desc
+# 0cf3ef3b-36f9-47d5-ba84-c3da7476dc06	Only need insurance for parts?	Sketch Higgle	https://cdn.motor1.com/images/mgl/EEWQe/s3/2016-bugatti-chiron.jpg	CoolWater provides policies that only cover certain components of your car providing you complete freedom over your insurance portfolio
+# 3f2b0ae0-3578-4190-b266-59f6a359d79c	Getting Ready For A Big Night?	Pete Loud	https://www.nydailynews.com/wp-content/uploads/migration/2016/06/03/DD2BKJSSALFDG3RORJ2QGRYR7E.jpg	CoolWater provides you with free rides home after 11pm every weekend!
+# 7bec6361-27f4-43f5-97e1-8bf4edb7e169	Our Amazing Service	Jermaine Fer	https://d39l2hkdp2esp1.cloudfront.net/img/photo/145768/145768_00_2x.jpg	At CoolWater we are focused on providing you with the best customer experience
+# d6785fa1-58d7-489b-9fac-32bafcfcde59	24-hour Emergency Service	Neo Deep	https://www.aa.co.nz/assets/motoring/blog/Driver-looking-under-bonnet-lemon.jpg	With CoolWater you have access to our 24-hour emergency service, 7 days a week, free of charge!
