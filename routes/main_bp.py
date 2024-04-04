@@ -29,7 +29,17 @@ from datetime import datetime
 
 # signup validation
 class QuoteForm(FlaskForm):
-    year = IntegerField("year", validators=[InputRequired()])
+    year = IntegerField(
+        "year",
+        validators=[
+            InputRequired(),
+            NumberRange(
+                max=datetime.now().year,
+                min=1900,
+                message=f"year must be between 1900 and the current year {datetime.now().year}",
+            ),
+        ],
+    )
     price = DecimalField("price", validators=[InputRequired()])
     submit = SubmitField("Calculate Quote")
 
