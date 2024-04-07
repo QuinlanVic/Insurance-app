@@ -62,7 +62,7 @@ class LoginForm(FlaskForm):
         # if it does not exist then user cannot log in and we send them back to login page
         if not specific_user:
             # the message below is displayed in the "div" in the signup form
-            raise ValidationError("Email or password invalid")
+            raise ValidationError("Email or password is invalid")
 
     # Validate for login form
     def validate_password(self, field):
@@ -141,9 +141,7 @@ def signup_page():
             db.session.add(new_user)
             db.session.commit()
             # go to home page when posting from signup page
-            flash(
-                "<h1>You have successfully signed up</h1> " + f"{specific_user.name} :)"
-            )
+            flash("You have successfully signed up " + f"{new_user.name} :)")
             next = request.args.get("next")
             # url_has_allowed_host_and_scheme should check if the url is safe
             # for redirects, meaning it matches the request host.
@@ -165,6 +163,7 @@ def signup_page():
 @login_required
 def logout():
     logout_user()
+    flash("You have successfully logged out :)")
     return redirect(url_for("main.index_page"))
 
 

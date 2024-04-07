@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 
 from extensions import db
 
+from models.user import User
+
 from flask_login import LoginManager
 
 login_manager = LoginManager()
@@ -44,9 +46,7 @@ db.init_app(app)
 # allows us to manipulate easier to work with datatypes such as lists of dicts (NOT query strings like above)
 # pyodbc = driver to connect to database
 
-
-# connect to our azure and create table(s)
-# constructor we are using is from "db.Model"
+login_manager.init_app(app)
 
 
 # ***** MISCELLANEOUS ROUTES *****
@@ -79,6 +79,12 @@ app.register_blueprint(employees_bp, url_prefix="/employees")
 
 # ***** USERS *****
 from routes.json.users_bp import users_bp
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+
 
 # registering "users_bp.py" as a blueprint and add a prefix for the url
 app.register_blueprint(users_bp, url_prefix="/users")
