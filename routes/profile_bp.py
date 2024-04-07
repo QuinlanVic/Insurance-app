@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, redirect, url_for, request
 
 from models.user import User
 from extensions import db
@@ -114,4 +114,4 @@ def update_profile():
         # return f"{specific_user.name} successfully updated", render_template("profile.html")
         return f"{specific_user.name} successfully updated"
     except Exception as e:
-        return f"<h1>An error occured: {str(e)}"
+        return f"<h1>An error occured: {str(e)}</h1>"

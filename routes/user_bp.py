@@ -6,6 +6,8 @@ from extensions import db
 
 from models.user import User
 
+from werkzeug.security import generate_password_hash, check_password_hash
+
 # from django.utils.http import url_has_allowed_host_and_scheme
 
 user_bp = Blueprint("user", __name__)
@@ -15,13 +17,13 @@ user_bp = Blueprint("user", __name__)
 from wtforms import StringField, PasswordField, SubmitField, EmailField
 from wtforms.validators import InputRequired, Length, ValidationError
 
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, login_required, logout_user
 
 
 # signup validation
 class SignUpForm(FlaskForm):
-    name = StringField("name", validators=[InputRequired(), Length(min=6)])
-    email = EmailField("email", validators=[InputRequired()])
+    name = StringField("Name", validators=[InputRequired(), Length(min=6)])
+    email = EmailField("Email", validators=[InputRequired()])
     password = PasswordField(
         "Password", validators=[InputRequired(), Length(min=8, max=12)]
     )
@@ -38,9 +40,9 @@ class SignUpForm(FlaskForm):
         specific_user = User.query.filter_by(email=field.data).first()
         # print(specific_user)
 
-        # if it does exist then user cannot sign up and send them back to register page
+        # if it does exist then user cannot sign up and send them back to signup page
         if specific_user:
-            # the message below is displayed in the "div" in the register form
+            # the message below is displayed in the "div" in the signup form
             raise ValidationError("Email already exists")
 
 
@@ -59,7 +61,7 @@ class LoginForm(FlaskForm):
 
         # if it does not exist then user cannot log in and we send them back to login page
         if not specific_user:
-            # the message below is displayed in the "div" in the register form
+            # the message below is displayed in the "div" in the signup form
             raise ValidationError("Email or password invalid")
 
     # Validate for login form
@@ -67,7 +69,7 @@ class LoginForm(FlaskForm):
         # access email via self
         user = User.query.filter_by(email=self.email.data).first()
         if user:
-            if user.password != field.data:
+            if not check_password_hash(user.password, field.data):
                 raise ValidationError("Email or password is invalid")
 
 
@@ -91,10 +93,10 @@ def login_page():
         if not specific_user:
             return render_template("login.html", form=form)
         # otherwise user has logged in successfully
-        # go to homepage when posting from login page
+        # go to homepage
         # token is issued - cookies stored in the browser
         login_user(specific_user)
-        flash("You have been successfully logged in " + f"{specific_user.username} :)")
+        flash("You have been successfully logged in " + f"{specific_user.name} :)")
         next = request.args.get("next")
         # url_has_allowed_host_and_scheme should check if the url is safe
         # for redirects, meaning it matches the request host.
@@ -110,7 +112,7 @@ def login_page():
 
 # GET - Issue token
 # POST - Verify token
-# new route for register page
+# new route for signup page
 @user_bp.route("/signup", methods=["GET", "POST"])  # HOF
 def signup_page():
     # GET & POST
@@ -129,25 +131,41 @@ def signup_page():
         # otherwise create a new user entry
         # print(form.email.data, form.password.data)
         # add registered users to the database
+        # "id" should be auto-created and "pic" and "policy-id" should have empty strings as default values
         new_user = User(
-            name=form.name.data, email=form.email.data, password=form.password.data
-        )  # id should be auto-created alongside pic and policy-id
+            name=form.name.data,
+            email=form.email.data,
+            password=generate_password_hash(form.password.data),
+        )
         try:
             db.session.add(new_user)
             db.session.commit()
-            # go to profile page when posting from signup page
-            # print("Profile page", name, email, password)
-            # return render_template("profile.html", user=new_user)
-            return "<h1> Registration successful </h1>", 201
-        # now send them to new profile page
+            # go to home page when posting from signup page
+            flash(
+                "<h1>You have successfully signed up</h1> " + f"{specific_user.name} :)"
+            )
+            next = request.args.get("next")
+            # url_has_allowed_host_and_scheme should check if the url is safe
+            # for redirects, meaning it matches the request host.
+            # if not url_has_allowed_host_and_scheme(next, request.host):
+            #     return abort(400)
+            # return f"<h1>Welcome back, {specific_user.name}"
+            return redirect(next or url_for("main.index_page"))
         # return render_template("profile.html", new_user.to_dict())
         except Exception as e:
             db.session.rollback()  # undo the change (unless committed already)
-            return f"<h1>An error occured: {str(e)}", 500
+            return f"<h1>An error occured: {str(e)}<\h1>", 500
 
     # only on GET
     # then use "form" in signup page
     return render_template("signup.html", form=form)
+
+
+@user_bp.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("main.index_page"))
 
 
 # store tokens in browser (local storage or cookies) (gets given after signing up/logging in)

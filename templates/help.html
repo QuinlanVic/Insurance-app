@@ -1,5 +1,5 @@
 <!-- probably a horrible hack to get this to override -->
-<style>
+<!-- <style>
     #page-body {
         /* margin: 0; */
         /* display: grid; */
@@ -11,7 +11,7 @@
         /* max-width: 100%; */
         /* background: skyblue; */
     }
-</style>
+</style> -->
 
 {% extends 'base.html' %}
 {% block title %} Help {% endblock %}
@@ -26,17 +26,13 @@
             <div class = "details">
                 <div class="detailsbox">
                     <h4>Fill in your details below, and a specially-assigned agent will call you back 🙂</h4>
-                    <!-- Let's create a very simple form -->
+                    <!-- form time -->
                     <div>
-                        <form action="/my-handling-form-page" method="post" class="form-help">
+                        <!-- <form action="" method="post" class="login-form">
                             <ul class = "form-list">
                                 <li>
-                                <label class="label-help" for="name">Name:</label>
-                                <input class="input-help" type="text" id="name" name="user_name" />
-                                </li>
-                                <li>
-                                    <label class="label-help" for="number">Phone Num:</label>
-                                    <input class="input-help" type="text" id="number" name="user_number" />
+                                <label class="label-help" for="number">Phone Num:</label>
+                                <input class="input-help" type="text" id="number" name="user_number" />
                                 </li>
                                 <li>
                                 <label class="label-help" for="mail">Email:</label>
@@ -50,6 +46,26 @@
                                     <button class="formbutton" type="submit">Send request</button>
                                 </li>
                             </ul>
+                        </form> -->
+                        <form class="login-form" action="" method="POST">
+                            <!-- Hidden input field with token as value (CSRF) -->
+                            {{form.hidden_tag()}}
+                            <!-- no extra validation errors to check for with this form -->
+                    
+                            <!-- add labels so users always know what they must type in -->
+                            <div class="form-group">
+                                {{form.name.label}}: {{form.name(placeholder="Name", class="form-control")}}
+                            </div>
+                            <div class="form-group">
+                                {{form.phone_num.label}}: {{form.phone_num(placeholder="Phone Number", class="form-control")}}
+                            </div>
+                            <div class="form-group">
+                                {{form.email.label}}: {{form.email(placeholder="Email", class="form-control")}}
+                            </div>
+                            <div class="form-group">
+                                {{form.msg.label}}: {{form.msg(placeholder="Message", class="form-control")}}
+                            </div>
+                            {{form.submit(class="btn btn-primary")}}
                         </form>
                     </div>
                 </div>

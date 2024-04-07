@@ -10,7 +10,7 @@ class Request(db.Model):
     id = db.Column(db.String(50), primary_key=True, default=lambda: str(uuid.uuid4()))
     name = db.Column(db.String(100), nullable=False)
     phone_num = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(200), nullable=False)
     msg = db.Column(db.String(500), nullable=False)
 
     # JSON - Keys (can change names sent to front-end)

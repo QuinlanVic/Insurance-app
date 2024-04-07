@@ -88,7 +88,7 @@ def new_policy_list():
         return f"{new_policy.name} successfully created"
     except Exception as e:
         db.session.rollback()  # Undo the change (cannot be done if already committed)
-        return f"<h1>An error occured: {str(e)}", 500
+        return f"<h1>An error occured: {str(e)}</h1>", 500
 
 
 # UPDATE policy FORM TO SQL DATABASE NOW NOT LOCAL
@@ -128,7 +128,7 @@ def update_policy_list():
         # return f"{specific_policy.name} successfully updated", render_template("policy.html", policy=specific_policy)
         return f"{specific_policy.name} successfully updated"
     except Exception as e:
-        return f"<h1>An error occured: {str(e)}"
+        return f"<h1>An error occured: {str(e)}</h1>"
 
 
 # delete policy from db after pressing button

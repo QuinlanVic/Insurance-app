@@ -100,3 +100,31 @@ users = [
 # 3f2b0ae0-3578-4190-b266-59f6a359d79c	Getting Ready For A Big Night?	Pete Loud	https://www.nydailynews.com/wp-content/uploads/migration/2016/06/03/DD2BKJSSALFDG3RORJ2QGRYR7E.jpg	CoolWater provides you with free rides home after 11pm every weekend!
 # 7bec6361-27f4-43f5-97e1-8bf4edb7e169	Our Amazing Service	Jermaine Fer	https://d39l2hkdp2esp1.cloudfront.net/img/photo/145768/145768_00_2x.jpg	At CoolWater we are focused on providing you with the best customer experience
 # d6785fa1-58d7-489b-9fac-32bafcfcde59	24-hour Emergency Service	Neo Deep	https://www.aa.co.nz/assets/motoring/blog/Driver-looking-under-bonnet-lemon.jpg	With CoolWater you have access to our 24-hour emergency service, 7 days a week, free of charge!
+
+# some articles user data
+articles = [
+    {
+        "title": "Only need insurance for parts?",
+        "author": "Sketch Higgle",
+        "poster": "https://cdn.motor1.com/images/mgl/EEWQe/s3/2016-bugatti-chiron.jpg",
+        "desc": "CoolWater provides policies that only cover certain components of your car providing you complete freedom over your insurance portfolio",
+    },
+    {
+        "title": "Getting Ready For A Big Night?",
+        "author": "Pete Loud",
+        "poster": "https://www.nydailynews.com/wp-content/uploads/migration/2016/06/03/DD2BKJSSALFDG3RORJ2QGRYR7E.jpg",
+        "desc": "CoolWater provides you with free rides home after 11pm every weekend!",
+    },
+    {
+        "title": "Our Amazing Service",
+        "author": "Jermaine Fer",
+        "poster": "https://d39l2hkdp2esp1.cloudfront.net/img/photo/145768/145768_00_2x.jpg",
+        "desc": "At CoolWater we are focused on providing you with the best customer experience",
+    },
+    {
+        "title": "24-hour Emergency Service",
+        "author": "Neo Deep",
+        "poster": "https://www.aa.co.nz/assets/motoring/blog/Driver-looking-under-bonnet-lemon.jpg",
+        "desc": "With CoolWater you have access to our 24-hour emergency service, 7 days a week, free of charge!",
+    },
+]

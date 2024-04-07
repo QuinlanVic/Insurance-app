@@ -6,17 +6,18 @@ from flask_login import UserMixin
 
 
 # create new Model for User table schema
+# "UserMixin" ensures that the User class comes with all the default methods
 class User(UserMixin, db.Model):
     __tablename__ = "users"
     # automatically creates and assigns value
     id = db.Column(db.String(50), primary_key=True, default=lambda: str(uuid.uuid4()))
     name = db.Column(db.String(100), nullable=False)
     # make unique
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(200), unique=True, nullable=False)
+    password = db.Column(db.String(200), nullable=False)
     # give defaults to these values and we or users can update them in future
     pic = db.Column(db.String(255), default="", nullable=False)
-    policy_id = db.Column(db.String(50), default="0", nullable=False)
+    policy_id = db.Column(db.String(200), default="0", nullable=False)
 
     # JSON - Keys (can change names sent to front-end)
     # class method
