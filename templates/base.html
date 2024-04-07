@@ -29,7 +29,7 @@
                 <a class = "page-link" href="/login">Login</a>
             {% else %}
                 <!-- need to get profile id somehow -->
-                <a class = "page-link" href="profile/{id}">Profile</a>
+                <a class = "page-link" href="profile/{{current_user.id}}">Profile</a>
                 <a class = "page-link" href="/logout">Logout</a>
             {% endif %}
         </div>

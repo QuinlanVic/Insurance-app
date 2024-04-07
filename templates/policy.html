@@ -1,186 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-     <!-- Add icon library -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
-    <style>
-        .navbar {
-            background: deepskyblue;
-            overflow: hidden;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 64px;
-        }
-        .page-link {
-            text-align: center;
-            color: ghostwhite;
-            padding: 0px 16px;
-            text-decoration: none;
-            font-size: 24px;
-        }
-        .page-link:hover {
-            background: whitesmoke;
-            color: black;
-        }
-        .page-link:active {
-            background: black;
-            color: whitesmoke;
-        }
-        .page-link.active {
-                background: black;
-                color: whitesmoke;
-        }
-        body {
-            /* font-family: "Fraunces"; */
-            font-family: sans-serif;
-            background: skyblue;
-            margin: 0;
-            /* display: grid; */
-            /* place-content: center; */
-        }
-        .all-policies {
-            /* display: grid; */
-            /* grid-template-columns: repeat(3, 1fr); */
-            display: flex;
-            /* gap: 16px; */
-            row-gap: 16px;
-            column-gap: 16px;
-            justify-content: space-around;
-            flex-wrap: wrap; 
-        }
-        .heading {
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-            font-size: 48px;
-            text-align: center;
-        }
-        .middle {
-            display: grid;
-            place-content: center;
-        }
-        .policy-container {
-            /* display: grid; */
-            /* place-content: center; */
-            /* row-gap: 16px; */
-            width: 640px;
-        }
-        .policy-poster {
-            /* max-height: 145px; */
-            /* aspect-ratio: 2 / 1; */
-            height: 460px;
-            width: 100%;
-            object-fit: cover;
-            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-            border-radius: 12px;
-        }
-        .name-price {
-            font-size: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .policy-desc {
-            font-size: 20px;
-            line-height: 1.5;
-        }
-        .policy-action {
-            display: flex;
-            justify-content: space-between;
-        }
-        .footer {
-            background: deepskyblue;
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-        }
-        .copyright {
-            flex: 1 1 auto;
-            flex-basis: 100%;
-            flex-grow: 0;
-            max-width: 100%; 
-        }
-        .copyright-text {
-            color: ghostwhite;
-            text-align: center;
-        }
-        .socials {
-            flex: 1 1 auto;
-            flex-basis: 100%;
-            flex-grow: 0;
-            max-width: 100%; 
-        }
-        .three-socials {
-            display: flex;
-            flex-wrap: nowrap;
-            height: 100%;
-            justify-content: center;
-            align-items: center;
-            min-width: 0;
-        }
-        /* style all font awesome icons */
-        .fa {
-            padding: 20px;
-            font-size: 30px;
-            width: 50px;
-            text-align: center;
-            text-decoration: none;
-        }
-        /* psuedo class "hover" for nice interaction */
-        .fa:hover {
-            opacity: 0.7;
-        }
-        /* set specific colours for each social media platform icon */
-        .fa-facebook {
-            background: #3B5998;
-            color: white;
-        }
-        .fa-instagram {
-            /* fancy background for instagram */
-            background: radial-gradient(circle farthest-corner at 35% 90%, #fec564, transparent 50%), radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%), radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 20% -50%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 60% -20%, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent), linear-gradient(#6559ca, #bc318f 30%, #e33f5f 50%, #f77638 70%, #fec66d 100%);
-            color: white;
-        }
-        .fa-twitter {
-            background: #55ACEE;
-            color: white;
-        }
-        .logo {
-            height: 32px;
-            width: 32px;
-        }
-    </style>
-</head>
-<body>
-    <div class="navbar">
-        <div class="leftbar">
-            <img class = "logo" src="https://freesvg.org/img/1413121417.png"/>
-            <a class = "page-link" href="/"> Home</a>
-            <a class = "page-link active" href="/policieslist">Policies</a>
-            <a class = "page-link" href="/aboutus">About</a>
-            <a class = "page-link" href="/help">Help</a>
-        </div>
-        <div class="rightbar">
-            <!-- if -->
-            <a class = "page-link" href="/signup">Sign Up</a>
-            <a class = "page-link" href="/login">Login</a>
-            <!-- else -->
-            <!-- <a class = "page-link" href="/profile">Profile</a> -->
-        </div>
-    </div>
-    <h1 class = "heading">Policy</h1>
+{% extends 'base.html' %}
+
+{% block title %} Policy {% endblock %}
+
+{% block content %}
+    <h1 class = "heading-policies">Policy</h1>
     <div class="middle">
-        <div class="policy-container">
-            <img class = "policy-poster" src="{{policy['poster']}}" alt="policy poster">
-            <div class="name-price">
+        <div class="topic-container">
+            <img class = "topic-pic" src="{{policy['poster']}}" alt="policy poster">
+            <div class="lspec-rspec">
                 <p class="name">{{policy["name"]}}</p>
                 <p class="price">R{{policy["price"]}}p/m</p>
             </div>
             <p class="policy-desc"> {{policy["desc"]}}</p>
-            <div class="policy-action">
+            <div class="topic-action">
                 <a href="/policieslist">Back to all policies ...</a>
                 <form class="addpolicy-form" action="{{url_for('policieslist.update_policy_page')}}" method="post">
                     <input name= "policy" type="text" value="{{policy}}" hidden>
@@ -193,20 +25,4 @@
             </div>
         </div>
     </div>
-     <!-- footer :) -->
-     <div class="footer">
-        <div class="copyright">
-            <p class="copyright-text">
-                Copyright © CoolWater is a licensed non-life insurer and Financial Services Provider (FSP 29698). Ts & Cs apply.
-            </p>
-        </div>
-        <div class="socials">
-            <div class="three-socials">
-                <a href="http://www.facebook.com/coolwater" class="fa fa-facebook"></a>
-                <a href="https://instagram.com/coolwater" class="fa fa-instagram"></a>
-                <a href="http://twitter.com/coolwater" class="fa fa-twitter"></a>
-            </div>
-        </div>
-    </div>
-</body>
-</html> 
+{% endblock %}

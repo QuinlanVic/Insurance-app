@@ -350,6 +350,53 @@
     justify-content: space-between;
 }
 
+/* POLICY, ARTICLE AND PROFILE STYLING */
+.middle {
+    display: grid;
+    place-content: center;
+}
+
+.topic-container {
+    /* display: grid; */
+    /* place-content: center; */
+    /* row-gap: 16px; */
+    width: 640px;
+}
+
+.topic-pic {
+    /* max-height: 145px; */
+    /* aspect-ratio: 2 / 1; */
+    height: 460px;
+    width: 100%;
+    object-fit: cover;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    border-radius: 12px;
+}
+
+.topic-action {
+    display: flex;
+    justify-content: space-between;
+}
+
+.lspec-rspec {
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* PROFILE */
+.profile-policy_id {
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+
+/* POLICY  */
+.policy-desc {
+    font-size: 20px;
+    line-height: 1.5;
+}
 
 /* I do not like bootstrap when it messses my shi up */
 /* <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
