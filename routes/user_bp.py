@@ -140,6 +140,8 @@ def signup_page():
         try:
             db.session.add(new_user)
             db.session.commit()
+            # log the user in
+            login_user(new_user)
             # go to home page when posting from signup page
             flash("You have successfully signed up " + f"{new_user.name} :)")
             next = request.args.get("next")
