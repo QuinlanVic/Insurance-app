@@ -87,7 +87,7 @@ def update_profile():
     user_name = request.form.get("name")
     user_email = request.form.get("email")
     user_password = request.form.get("password")
-    user_pic = request.form.get("pic]")
+    user_pic = request.form.get("pic")
     user_policy_id = request.form.get("policy_id")
     update_data = {
         "name": user_name,

@@ -11,7 +11,8 @@
     .navbar {
         /* justify-content: center; */
         flex-wrap: wrap;
-        height: 100%;
+        flex-direction: row;
+        height: auto;
     }
 }
 .page-link {
