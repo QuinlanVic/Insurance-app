@@ -139,15 +139,32 @@ def get_quote_page():
         # for redirects, meaning it matches the request host.
         # if not url_has_allowed_host_and_scheme(next, request.host):
         #     return abort(400)
-        cover = 50000
-        premium = 500
-        flash(
-            "We can offer you R"
-            + f"{cover}"
-            + " in cover and you would pay R"
-            + f"{premium}"
-            + " per month :)"
+        purch_price = form.price.data
+        year = form.year.data
+        # average rate of depreciation is 15% per year
+        # simple calculation
+        # car_worth = purchase_price * (1 - rateofdep/100) ^ years_after_purchase
+        dep_rate = 15
+        car_worth = purch_price * (
+            (1 - (dep_rate / 100)) ** (datetime.now().year - year)
         )
+        # if it's less than 10000 then we are not going to insure it
+        if car_worth < 10000:
+            flash(
+                "Your car is worth less than R10000 and therefore we cannot offer you an insurance premium"
+            )
+        else:
+            # we are going to cover how much your car is worth
+            cover = car_worth
+            # the premiums are going to be how much it would be for you to pay for your car's worth over the next 5 years (WITH DEPRECIATION)
+            premium = (car_worth * ((1 - (dep_rate / 100)) ** (5))) / 60
+            flash(
+                "We can offer you R"
+                + f"{cover}"
+                + " in cover and you would pay R"
+                + f"{premium}"
+                + " per month :)"
+            )
         return render_template("getquote.html", form=form)
     # Only on GET - use form instance in "getquote" page
     return render_template("getquote.html", form=form)
