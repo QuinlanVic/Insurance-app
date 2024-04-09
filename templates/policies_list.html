@@ -4,7 +4,9 @@
 
 {% block content %}
     <h1 class = "heading-policies">Policies</h1>
-    <a href="/policieslist/add"><button class="addbut" type="submit">Add Policy</button></a>
+    {% if current_user.email == 'admin123@gmail.com' %}
+        <a href="/policieslist/add"><button class="addbut" type="submit">Add Policy</button></a>
+    {% endif %}
     <div class="all-policies">
         {%for policy in policies%}
         <div class="policy-container">
@@ -16,14 +18,16 @@
             <p class="policy-desc"> {{policy["desc"]}}</p>
             <div class="policy-action">
                 <a href="/policieslist/{{policy['id']}}">Read More ...</a>
-                <form class="addpolicy-form" action="{{url_for('policieslist.update_policy_page')}}" method="post">
-                    <input name= "policy" type="text" value="{{policy}}" hidden>
-                    <button type="submit">Update</button>
-                </form>
-                <form class="addpolicy-form" action="{{url_for('policieslist.delete_policy_by_id')}}" method="post">
-                    <input name= "policy_id" type="text" value="{{policy.id}}" hidden>
-                    <button type="submit">Delete</button>
-                </form>
+                {% if current_user.email == 'admin123@gmail.com' %}
+                    <form class="addpolicy-form" action="{{url_for('policieslist.update_policy_page')}}" method="post">
+                        <input name= "policy" type="text" value="{{policy}}" hidden>
+                        <button type="submit">Update</button>
+                    </form>
+                    <form class="addpolicy-form" action="{{url_for('policieslist.delete_policy_by_id')}}" method="post">
+                        <input name= "policy_id" type="text" value="{{policy.id}}" hidden>
+                        <button type="submit">Delete</button>
+                    </form>
+                {% endif %}
             </div>
         </div>
         {% endfor %}

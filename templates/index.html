@@ -4,7 +4,9 @@
 
 {% block content %}
     <h1 class="heading-index">Welcome!</h1>
-    <a href="/articleslist/add"><button class="addbut" type="submit">Add Article</button></a>
+    {% if current_user.email == 'admin123@gmail.com' %}
+        <a href="/articleslist/add"><button class="addbut" type="submit">Add Article</button></a>
+    {% endif %}
     <div class="all-articles">
         {%for article in articles%}
         <div class="article-container">
@@ -16,14 +18,16 @@
             <p class="article-desc"> {{article["desc"]}}</p>
             <div class="article-action">
                 <a href="/articleslist/{{article['id']}}">Read More ...</a>
-                <form class="addarticle-form" action="{{url_for('articleslist.update_article_page')}}" method="post">
-                    <input name= "article" type="text" value="{{article}}" hidden>
-                    <button type="submit" class="btn btn-light">Update</button>
-                </form>
-                <form class="addarticle-form" action="{{url_for('articleslist.delete_article_by_id')}}" method="post">
-                    <input name= "article_id" type="text" value="{{article.id}}" hidden>
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
+                {% if current_user.email == 'admin123@gmail.com' %}
+                    <form class="addarticle-form" action="{{url_for('articleslist.update_article_page')}}" method="post">
+                        <input name= "article" type="text" value="{{article}}" hidden>
+                        <button type="submit" class="btn btn-light">Update</button>
+                    </form>
+                    <form class="addarticle-form" action="{{url_for('articleslist.delete_article_by_id')}}" method="post">
+                        <input name= "article_id" type="text" value="{{article.id}}" hidden>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                {% endif %}
             </div>
         </div>
         {% endfor %}

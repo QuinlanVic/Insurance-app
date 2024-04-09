@@ -180,14 +180,16 @@
             <!-- if admin see this -->
             <div class="article-action">
                 <a href="/">Back to home page ...</a>
-                <form class="addarticle-form" action="{{url_for('articleslist.update_article_page')}}" method="post">
-                    <input name= "article" type="text" value="{{article}}" hidden>
-                    <button type="submit">Update</button>
-                </form>
-                <form class="addarticle-form" action="{{url_for('articleslist.delete_article_by_id')}}" method="post">
-                    <input name= "article_id" type="text" value="{{article.id}}" hidden>
-                    <button type="submit">Delete</button>
-                </form>
+                {% if current_user.email == 'admin123@gmail.com' %}
+                    <form class="addarticle-form" action="{{url_for('articleslist.update_article_page')}}" method="post">
+                        <input name= "article" type="text" value="{{article}}" hidden>
+                        <button type="submit">Update</button>
+                    </form>
+                    <form class="addarticle-form" action="{{url_for('articleslist.delete_article_by_id')}}" method="post">
+                        <input name= "article_id" type="text" value="{{article.id}}" hidden>
+                        <button type="submit">Delete</button>
+                    </form>
+                {% endif %}
             </div>
         </div>
     </div>
