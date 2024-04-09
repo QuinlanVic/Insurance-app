@@ -17,6 +17,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(200), nullable=False)
     # give defaults to these values and we or users can update them in future
     pic = db.Column(db.String(255), default="", nullable=False)
+    # get rid of this and use "userpolicies" table
     policy_id = db.Column(db.String(200), default="0", nullable=False)
 
     # JSON - Keys (can change names sent to front-end)

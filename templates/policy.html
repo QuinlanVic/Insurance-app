@@ -14,6 +14,12 @@
             <p class="policy-desc"> {{policy["desc"]}}</p>
             <div class="topic-action">
                 <a href="/policieslist">Back to all policies ...</a>
+                {% if current_user.isauthenticated and not current_user.email == 'admin123@gmail.com' %}
+                    <form class="addpolicy-form" action="{{url_for('policieslist.take_out_policy')}}" method="post">
+                        <input name= "policy_id" type="text" value="{{policy.id}}" hidden>
+                        <button type="submit">Take Out Policy</button>
+                    </form>
+                {% endif %}
                 {% if current_user.email == 'admin123@gmail.com' %}
                     <form class="addpolicy-form" action="{{url_for('policieslist.update_policy_page')}}" method="post">
                         <input name= "policy" type="text" value="{{policy}}" hidden>

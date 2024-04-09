@@ -3,6 +3,8 @@ from flask import Blueprint, render_template, redirect, url_for, request
 from models.user import User
 from extensions import db
 
+from werkzeug.security import generate_password_hash
+
 from flask_login import login_required
 
 import json
@@ -21,6 +23,26 @@ def profile_page(id):
     if profile is None:
         return "<h1>Profile not found</h1>"
     return render_template("profile.html", profile=profile.to_dict())
+
+
+# Define a route for the claims page
+@profile_bp.route("/claims/<id>")
+@login_required
+def claims_page(id):
+    profile = User.query.get(id)
+    if profile is None:
+        return "<h1>Profile not found</h1>"
+    return render_template("claims.html", profile=profile.to_dict())
+
+
+# Define a route for the claims page
+@profile_bp.route("/mypolicies/<id>")
+@login_required
+def my_policies_page(id):
+    profile = User.query.get(id)
+    if profile is None:
+        return "<h1>Profile not found</h1>"
+    return render_template("mypolicies.html", profile=profile.to_dict())
 
 
 # /profile/update -> Update profile form (existing fields) -> Submit -> /profile/id
@@ -86,7 +108,7 @@ def update_profile():
     user_id = request.form.get("id")
     user_name = request.form.get("name")
     user_email = request.form.get("email")
-    user_password = request.form.get("password")
+    user_password = generate_password_hash(request.form.get("password"))
     user_pic = request.form.get("pic")
     user_policy_id = request.form.get("policy_id")
     update_data = {
