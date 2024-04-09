@@ -139,8 +139,11 @@ def get_quote_page():
         # for redirects, meaning it matches the request host.
         # if not url_has_allowed_host_and_scheme(next, request.host):
         #     return abort(400)
-        purch_price = form.price.data
+        # convert to float as it was giving issues
+        purch_price = float(form.price.data)
+        print(type(purch_price))
         year = form.year.data
+        print(type(year))
         # average rate of depreciation is 15% per year
         # simple calculation
         # car_worth = purchase_price * (1 - rateofdep/100) ^ years_after_purchase
@@ -160,9 +163,9 @@ def get_quote_page():
             premium = (car_worth * ((1 - (dep_rate / 100)) ** (5))) / 60
             flash(
                 "We can offer you R"
-                + f"{cover}"
+                + f"{round(cover,2)}"
                 + " in cover and you would pay R"
-                + f"{premium}"
+                + f"{round(premium,2)}"
                 + " per month :)"
             )
         return render_template("getquote.html", form=form)

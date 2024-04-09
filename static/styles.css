@@ -7,6 +7,13 @@
     align-items: center;
     height: 64px;
 }
+@media (max-width:825px) {
+    .navbar {
+        /* justify-content: center; */
+        flex-wrap: wrap;
+        height: 100%;
+    }
+}
 .page-link {
     text-align: center;
     color: ghostwhite;
@@ -167,6 +174,13 @@
     flex-direction: row;
     flex: 1 1 auto;
     text-align: left; */
+}
+/* make responsive with info. under form as it screen gets smaller */
+@media (max-width: 600px) {
+    .detailsandcontact {
+        display: flex;
+        flex-wrap: wrap;
+    }
 }
 /* LEFT */
 .details {
