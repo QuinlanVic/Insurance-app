@@ -17,6 +17,7 @@ class Policy(db.Model):
     # give defaults to these values as we or users can update them in future
     poster = db.Column(db.String(255), default="", nullable=False)
     desc = db.Column(db.String(500), default="", nullable=False)
+    policyholder = db.relationship("UserPolicy", backref="policy", lazy=True)
 
     # JSON - Keys (can change names sent to front-end)
     # class method

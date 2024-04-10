@@ -491,13 +491,47 @@
       font-weight: bold;
   }
 
+/* ARTICLE PAGE */
+.middle {
+    display: grid;
+    place-content: center;
+}
+.article-container {
+    /* display: grid;
+    row-gap: 16px; */
+    width: 640px;
+}
+.article-poster {
+    /* max-height: 145px; */
+    /* aspect-ratio: 2 / 1; */
+    height: 460px;
+    width: 100%;
+    object-fit: cover;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    border-radius: 12px;
+}
+.title-author {
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.article-desc {
+    font-size: 20px;
+    line-height: 1.5;
+}
+.article-action {
+    display: flex;
+    justify-content: space-between;
+}
 
+
+/* ALL CRUD FORMS ARE NOT FORMATTED/STYLED AS ADMIN DOES NOT REQUIRE IT */
 /* ADD ARTICLE */
 /* .addarticle-form {
     display: grid;
     gap: 12px;
 } */
-
 
 /* I do not like bootstrap when it messses my shi up */
 /* <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

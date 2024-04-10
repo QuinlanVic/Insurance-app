@@ -125,7 +125,7 @@ try:
         # it won't cause an error as it only adds if the table doesn't exist
         # but always keep "create_all" when in production (for updates)
         # delete and then recreate tables
-        # db.drop_all()
-        # db.create_all()  # easier way to create tables through python after connecting
+        db.drop_all()
+        db.create_all()  # easier way to create tables through python after connecting
 except Exception as e:
     print("Error connecting to the database:", e)
