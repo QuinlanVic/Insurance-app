@@ -10,12 +10,10 @@ from flask_login import UserMixin
 class UserClaim(UserMixin, db.Model):
     __tablename__ = "usersclaims"
     # automatically creates and assigns value
-    user_id = db.Column(
-        db.String(50), primary_key=True, default=lambda: str(uuid.uuid4())
-    )
     claim_id = db.Column(
         db.String(50), primary_key=True, default=lambda: str(uuid.uuid4())
     )
+    user_id = db.Column(db.String(50), db.ForeignKey("User.id"))
     amount = db.Column(db.Float(100), nullable=False)
     desc = db.Column(db.String(500), default="", nullable=False)
 

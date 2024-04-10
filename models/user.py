@@ -19,6 +19,9 @@ class User(UserMixin, db.Model):
     pic = db.Column(db.String(255), default="", nullable=False)
     # get rid of this and use "userpolicies" table
     policy_id = db.Column(db.String(200), default="0", nullable=False)
+    # relationships with other tables
+    MyPolicies = db.relationship("User", backref="PolicyHolder", lazy="dynamic")
+    ClaimMade = db.relationship("User", backref="ClaimMaker", lazy="dynamic")
 
     # JSON - Keys (can change names sent to front-end)
     # class method
