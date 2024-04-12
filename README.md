@@ -1,3 +1,53 @@
+# Welcome to CoolWater 
+## A car insurance app that provides users with a comfortable way to be in charge of their future
+
+## Application structure
+## Routing 
+
+
+## Files
+Models folder
+- Consists of all classes that represent table schemas
+
+Routes folder
+- Consists of blueprints defining the routes for navigaiton through the application
+- Inner routes folder
+    - Consists of all API calls for CRUD operations (largely for front-end developers to use)
+
+Static folder
+- Consists of most (almost all) the CSS code for the project
+
+Templates folder
+- Consists of all HTML files used to represent web pages of the application
+
+app.py file
+- Links all of the functionalities to create the application
+    - connects to database and links all routes for navigation
+
+DockerFile
+- consists of the code to deploy the applicaiton to render.com
+
+localdata.py
+- consists of dummy dicitonary data that is put into the tables of the database connected to the application
+
+requirements.txt
+- consists of the list of required packages and verisons (project dependencies)
+
+extensions.py
+- consists of code/variables/data that is required globally in the application
+
+Project Report
+- Consists of a summary of the developer's experience and some more information regarding the application
+
+RESTful API Documentation
+- Consists of structure of API calls for the applicaiton and what they do
+
+High-level Overview of Developer's Experience
+- Implemented the functionality that we learned in class for this application throughout the course
+- Worked through any errors with trial and error/thorough debugging with techniques learnt throughout my career and specific techniques from the course
+
+
+
 # Setup
 
 ## Virtual Environment
