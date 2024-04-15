@@ -1,6 +1,11 @@
 # Welcome to CoolWater 
 ## A car insurance app that provides users with a comfortable way to stay in charge of their financial future with us
 
+## Benefits/Purpose of the web application
+It allows clients to read through the articles, policies and background information of the company. In addition, it offers them a way to contact the company.
+Lastly, and most importantly it allows users to calculate car insurance quotes and manage their policies and claims after logging in through a secure portal.
+The admin view allows the admin user to manipulate all of the data stored using CRUD operations.
+
 ## Application structure
 User has access to most pages except Profile, My Policies and Claims. 
 They can browse all other pages without having to log in. 
