@@ -56,7 +56,10 @@ Project Report
 RESTful API Documentation
 - Consists of structure of API calls for the application and what they do
 
-## POSTMAN COLLECTION AND Connection to Local/Azure Database 
+## POSTMAN Collection
+The JSON file with all POSTMAN requests can be found in the "Insurance App.postman_collection.json" document
+
+## Connection to Local/Azure Database 
 Restricted access, have to ask for confidential information.
 
 

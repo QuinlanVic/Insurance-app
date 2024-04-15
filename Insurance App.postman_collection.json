@@ -1,0 +1,534 @@
+{
+	"info": {
+		"_postman_id": "8ef14d11-8b7b-40e7-bcb7-63f478c6477e",
+		"name": "Insurance App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33636847"
+	},
+	"item": [
+		{
+			"name": "GET All Users Insurance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/users",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Articles Insurance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/articles",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Employees Insurance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/employees",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Policies Insurance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/policies",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"policies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET User by id Insurance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/users/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Article by id Insurance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/articles/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"articles",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Employee by id Insurance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/employees/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"employees",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Policy by id Insurance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/policies/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"policies",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE User by id Insurance",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/users/cc792a4e-8baf-499b-b2c7-05019e2fd8ad",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"cc792a4e-8baf-499b-b2c7-05019e2fd8ad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Article by id Insurance",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/articles/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"articles",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Policy by id Insurance",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/policies/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"policies",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Employee by id Insurance",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/employees/8eefcd1d-3b8a-41ce-8ba2-e5af07dbee78",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"employees",
+						"8eefcd1d-3b8a-41ce-8ba2-e5af07dbee78"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE User Insurance",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"EthanRich\",\r\n    \"email\": \"E.rich@gmail.com\",\r\n    \"password\": \"ethan123456\",\r\n    \"pic\": \"https://t4.ftcdn.net/jpg/02/45/56/35/360_F_245563558_XH9Pe5LJI2kr7VQuzQKAjAbz9PAyejG1.jpg\",\r\n    \"policy-id\": \"0\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/users",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE Article Insurance",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"title\": \"Our Amazing Service\",\r\n        \"author\": \"Jermaine Fer\",\r\n        \"poster\": \"https://d39l2hkdp2esp1.cloudfront.net/img/photo/145768/145768_00_2x.jpg\",\r\n        \"desc\": \"At CoolWater we are focused on providing you with the best customer experience\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/articles",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE Employee Insurance",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Paul Flex\",\r\n        \"job_title\": \"CEO\",\r\n        \"pic\": \"https://t4.ftcdn.net/jpg/06/35/15/47/360_F_635154757_zU5ZxxZe3Vs0hrrOQ9WBgNgX8s4Cw19s.jpg\",\r\n        \"desc\": \"Paul Flex is CoolWater's Chief Executive Officer\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/employees",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE Policy Insurance",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n\"name\": \"WaterCool Car Insurance\",\r\n        \"price\": 3000,\r\n        \"poster\": \"https://i.pinimg.com/originals/56/c3/74/56c3744dc273cab7d050b9943d2accfa.jpg\",\r\n        \"desc\": \"WaterCool Car Insurance is targeted at those with sports cars\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/policies",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"policies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE User by id Insurance",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pic\": \"https://media.licdn.com/dms/image/D4D03AQEiTj3QkwouxA/profile-displayphoto-shrink_800_800/0/1708347301272?e=1716422400&v=beta&t=tAIxvchugcfpZD59VhKLv33RO1sjFs98JvPdcUtBdRQ\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/users/0848ce2b-2c44-4b7e-a79f-5cc4be05bd8f",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"0848ce2b-2c44-4b7e-a79f-5cc4be05bd8f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE Article by id Insurance",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Our Amazing Service\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/articles/7bec6361-27f4-43f5-97e1-8bf4edb7e169",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"articles",
+						"7bec6361-27f4-43f5-97e1-8bf4edb7e169"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE Employee by id Insurance",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Do Santo\",\r\n    \"desc\": \"Bro is a funny IT technician\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/employees/d95433dc-136f-460f-9646-b5ea3e217d2f",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"employees",
+						"d95433dc-136f-460f-9646-b5ea3e217d2f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE Policy by id Insurance",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"price\": 750\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/policies/49f892ad-7bbc-4291-99f3-097de06adb5",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"policies",
+						"49f892ad-7bbc-4291-99f3-097de06adb5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
