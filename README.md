@@ -1,9 +1,18 @@
 # Welcome to CoolWater 
-## A car insurance app that provides users with a comfortable way to be in charge of their future
+## A car insurance app that provides users with a comfortable way to stay in charge of their financial future with us
 
 ## Application structure
-## Routing 
+User has access to most pages except Profile, My Policies and Claims. 
+They can browse all other pages without having to log in. 
+They can also calculate quotes.
+To access more functionality they have to login or register.
+From there they can check out their profile and policies and claims.
+Additionally there is an "admin" view which is the same as a users except they can 
+update, create and delete articles, policies, users, claims and employees (some still to be implemented).
 
+
+## Routing 
+Each file has an associated route that is defined in blueprints but are loaded into the "app.py" page. 
 
 ## Files
 Models folder
@@ -46,6 +55,8 @@ High-level Overview of Developer's Experience
 - Implemented the functionality that we learned in class for this application throughout the course
 - Worked through any errors with trial and error/thorough debugging with techniques learnt throughout my career and specific techniques from the course
 
+## POSTMAN COLLECTION AND Connection to Local/Azure Database 
+Restricted access, have to ask for confidential information.
 
 
 # Setup
@@ -117,3 +128,4 @@ Useful for saving all specific packages in case my environment is deleted for ex
 ```sh
 pip install -r requirements.txt
 ```
+
