@@ -19,13 +19,13 @@ update, create and delete articles, policies, users, claims and employees (some 
 ## Routing 
 Each file has an associated route that is defined in blueprints but are loaded into the "app.py" page. 
 
-## Files
+## File Structure
 Models folder
 - Consists of all classes that represent table schemas
 
 Routes folder
 - Consists of blueprints defining the routes for navigaiton through the application
-- Inner routes folder
+- Inner routes folder - json
     - Consists of all API calls for CRUD operations (largely for front-end developers to use)
 
 Static folder
@@ -39,7 +39,7 @@ app.py file
     - connects to database and links all routes for navigation
 
 DockerFile
-- consists of the code to deploy the applicaiton to render.com
+- consists of the code to deploy the applicaiton to "render.com"
 
 localdata.py
 - consists of dummy dicitonary data that is put into the tables of the database connected to the application
@@ -54,11 +54,7 @@ Project Report
 - Consists of a summary of the developer's experience and some more information regarding the application
 
 RESTful API Documentation
-- Consists of structure of API calls for the applicaiton and what they do
-
-High-level Overview of Developer's Experience
-- Implemented the functionality that we learned in class for this application throughout the course
-- Worked through any errors with trial and error/thorough debugging with techniques learnt throughout my career and specific techniques from the course
+- Consists of structure of API calls for the application and what they do
 
 ## POSTMAN COLLECTION AND Connection to Local/Azure Database 
 Restricted access, have to ask for confidential information.
