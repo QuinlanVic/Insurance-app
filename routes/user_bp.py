@@ -169,5 +169,14 @@ def logout():
     return redirect(url_for("main.index_page"))
 
 
+@user_bp.route("/takeoutpolicy")
+@login_required
+def take_out_policy():
+    # do some database stuff here later
+    flash("You have successfully applied for a new policy!")
+    flash("We will inform you via email whether it is successful or not :)")
+    return redirect(url_for("policieslist.policies_list_page"))
+
+
 # store tokens in browser (local storage or cookies) (gets given after signing up/logging in)
 # no token, no data

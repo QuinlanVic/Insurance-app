@@ -14,11 +14,11 @@
             <div class="topic-action">
                 <form class="addprofile-form" action="{{url_for('profile.update_profile_page')}}" method="post">
                     <input name= "profile" type="text" value="{{profile}}" hidden>
-                    <button type="submit">Update</button>
+                    <button type="submit" class="button-15">Update</button>
                 </form>
                 <form class="addprofile-form" action="{{url_for('profile.delete_user_by_id')}}" method="post">
                     <input name= "profile_id" type="text" value="{{profile.id}}" hidden>
-                    <button type="submit">Delete</button>
+                    <button type="submit" class="button-15">Delete</button>
                 </form>
             </div>
         </div>
