@@ -592,18 +592,30 @@
     margin-top: 6px;
   }
   
+  label {
+    /* padding: 12px 12px 12px 0; */
+    display: inline-block;
+  }
+  
   .col-75 {
     float: left;
-    width: 75%;
+    width: 70%;
     margin-top: 6px;
   }
 
   .fill-in {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     border-radius: 4px;
     resize: vertical;
+  }
+
+  @media screen and (max-width: 600px) {
+    .col-25, .col-75 {
+      width: 90%;
+      margin-top: 0;
+    }
   }
   
 
