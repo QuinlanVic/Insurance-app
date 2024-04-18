@@ -38,7 +38,6 @@ class User(UserMixin, db.Model):
             "email": self.email,
             "password": self.password,
             "pic": self.pic,
-            "policy_id": self.policy_id,
         }
 
 

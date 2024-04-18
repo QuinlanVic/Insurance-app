@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 
 from models.user import User
 from extensions import db
@@ -89,7 +89,14 @@ def delete_user_by_id():
         # Do not return JSON data as you want to display the information on the screen
         # take them back to home page
         # return f"<h1>{user.to_dict()['name']} successfully deleted</h1>", render_template("index.html")
-        return f"<h1>{user.to_dict()['name']} successfully deleted</h1>"
+        flash(f"{user.to_dict()['name']} " + "successfully deleted")
+        next = request.args.get("next")
+        # url_has_allowed_host_and_scheme should check if the url is safe
+        # for redirects, meaning it matches the request host.
+        # if not url_has_allowed_host_and_scheme(next, request.host):
+        #     return abort(400)
+        # return f"<h1>Welcome back, {specific_user.name}"
+        return redirect(next or url_for("main.index_page"))
     except Exception as e:
         # undo changes (unless already committed)
         db.session.rollback()
@@ -134,6 +141,13 @@ def update_profile():
         db.session.commit()
         # now take them back to the profile page
         # return f"{specific_user.name} successfully updated", render_template("profile.html")
-        return f"{specific_user.name} successfully updated"
+        flash(f"{specific_user.name} " + "successfully updated")
+        next = request.args.get("next")
+        # url_has_allowed_host_and_scheme should check if the url is safe
+        # for redirects, meaning it matches the request host.
+        # if not url_has_allowed_host_and_scheme(next, request.host):
+        #     return abort(400)
+        # return f"<h1>Welcome back, {specific_user.name}"
+        return redirect(next or url_for("main.index_page"))
     except Exception as e:
         return f"<h1>An error occured: {str(e)}</h1>"

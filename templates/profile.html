@@ -10,7 +10,6 @@
                 <p class="name">{{profile["name"]}}</p>
                 <p class="email">{{profile["email"]}}</p>
             </div>
-            <p class="profile-policy_id"> {% if profile["policy_id"] != "0" %} You have the car insurance policy with the id {{profile["policy_id"]}} {% else %} You currently have no insurance products with us {% endif %}</p>
             <div class="topic-action">
                 <form class="addprofile-form" action="{{url_for('profile.update_profile_page')}}" method="post">
                     <input name= "profile" type="text" value="{{profile}}" hidden>
@@ -18,7 +17,7 @@
                 </form>
                 <form class="addprofile-form" action="{{url_for('profile.delete_user_by_id')}}" method="post">
                     <input name= "profile_id" type="text" value="{{profile.id}}" hidden>
-                    <button type="submit" class="button-15">Delete</button>
+                    <button type="submit" class="button-15">Terminate</button>
                 </form>
             </div>
         </div>
