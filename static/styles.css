@@ -447,7 +447,10 @@
       content: '✓';
   }
   p.aup:before {
-      content: "• ";
+      content: "\27A2 ";
+  }
+  p.aboutus-p:before {
+    content: "• "
   }
   .heading-aboutus, .heading-team {
       text-transform: uppercase;

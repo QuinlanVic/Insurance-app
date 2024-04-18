@@ -48,7 +48,8 @@ class SignUpForm(FlaskForm):
 
 # login validation
 class LoginForm(FlaskForm):
-    email = StringField("Email", validators=[InputRequired()])
+    email = EmailField("Email", validators=[InputRequired()])
+    # do not have special validators so hacker cannot know proper length of passwords and such unless they go to signup
     password = PasswordField("Password", validators=[InputRequired()])
     submit = SubmitField("Login")
 

@@ -42,7 +42,7 @@ class QuoteForm(FlaskForm):
         ],
     )
     price = DecimalField(
-        "price",
+        "Price",
         validators=[
             InputRequired(),
             NumberRange(
