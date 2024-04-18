@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 
-from models.user import User
+from models.user import User, UserPolicy, UserClaim
 from extensions import db
 
 from werkzeug.security import generate_password_hash
@@ -29,20 +29,20 @@ def profile_page(id):
 @profile_bp.route("/claims/<id>")
 @login_required
 def claims_page(id):
-    profile = User.query.get(id)
-    if profile is None:
-        return "<h1>Profile not found</h1>"
-    return render_template("claims.html", profile=profile.to_dict())
+    claims = UserClaim.query.get(id)
+    if claims is None:
+        return render_template("noclaims.html")
+    return render_template("claims.html", claims=claims.to_dict())
 
 
 # Define a route for the claims page
 @profile_bp.route("/mypolicies/<id>")
 @login_required
 def my_policies_page(id):
-    profile = User.query.get(id)
-    if profile is None:
-        return "<h1>Profile not found</h1>"
-    return render_template("mypolicies.html", profile=profile.to_dict())
+    policies = UserPolicy.query.get(id)
+    if policies is None:
+        return render_template("nopolicies.html")
+    return render_template("mypolicies.html", policies=policies.to_dict())
 
 
 # /profile/update -> Update profile form (existing fields) -> Submit -> /profile/id
