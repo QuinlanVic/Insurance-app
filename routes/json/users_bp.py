@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from models.user import User
 from extensions import db
 
+from flask_login import login_required
+
 # ********** THESE ARE FOR JSON REQUESTS BY FRONT-END DEVELOPERS **********
 
 # or no import and this code
@@ -39,6 +41,7 @@ users_bp = Blueprint("users", __name__)
 
 # Get all users from azure request
 @users_bp.get("/")
+@login_required
 def get_users():
     user_list = User.query.all()  # SELECT * FROM users | user_list iterator
     data = [user.to_dict() for user in user_list]  # convert to a list of dict
@@ -50,6 +53,7 @@ def get_users():
 
 # Get a specific user from azure request
 @users_bp.get("/<id>")
+@login_required
 def get_specific_user(id):
     # print(type(id))  # string
 
@@ -68,6 +72,7 @@ def get_specific_user(id):
 
 # Create a new user and add it to azure db request
 @users_bp.post("/")
+@login_required
 def create_user():
     # get new user JSON data from body in request
     data = request.json
@@ -77,7 +82,6 @@ def create_user():
         email=data["email"],
         password=data["password"],
         pic=data["pic"],
-        policy_id=data["policy_id"],
     )
     # if keys of Model and keys of data sent from users side are the same then you can use unpacking
     # risk = if they provide an "id" value, it is added (not automatically generated)
@@ -101,6 +105,7 @@ def create_user():
 
 # Update specific user and add to azure db request
 @users_bp.put("/<id>")
+@login_required
 def update_user(id):
     # get data from request body
     update_data = request.json
@@ -138,6 +143,7 @@ def update_user(id):
 
 # Delete the specific user from azure db request
 @users_bp.delete("/<id>")
+@login_required
 def delete_user(id):
     # get specific user from "id" in URL
     user_del = User.query.get(id)

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 
 from models.policy import Policy
 from extensions import db
@@ -84,8 +84,8 @@ def new_policy_list():
         # convert to a list of dict
         data = [policy.to_dict() for policy in policy_list]
         # go back to policies page after adding new policy
-        # return render_template("policies_list.html", policys=data)
-        return f"{new_policy.name} successfully created"
+        flash(f"{new_policy.name}" + "successfully created")
+        return redirect(url_for("policieslist.policies_list_page"))
     except Exception as e:
         db.session.rollback()  # Undo the change (cannot be done if already committed)
         return f"<h1>An error occured: {str(e)}</h1>", 500

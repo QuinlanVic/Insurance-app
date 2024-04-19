@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 
 from extensions import db
 
-from models.user import User
+from models.user import User, UserPolicy, UserClaim
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -170,10 +170,20 @@ def logout():
     return redirect(url_for("main.index_page"))
 
 
-@user_bp.route("/takeoutpolicy")
+@user_bp.route("/takeoutpolicy", methods=["POST"])
 @login_required
 def take_out_policy():
+    new_user_policy = UserPolicy(
+        user_id=request.form.get("user_id"), policy_id=request.form.get("policy_id")
+    )
     # do some database stuff here later
+    try:
+        # try to add the new policy
+        db.session.add(new_user_policy)
+        # db.session.commit()
+    except:
+        db.session.rollback()  # Undo the change (cannot be done if already committed)
+        return f"<h1>An error occured: {str(e)}</h1>", 500
     flash("You have successfully applied for a new policy!")
     flash("We will inform you via email whether it is successful or not :)")
     return redirect(url_for("policieslist.policies_list_page"))

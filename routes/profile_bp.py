@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 
 from models.user import User, UserPolicy, UserClaim
+from models.policy import Policy
 from extensions import db
 
 from werkzeug.security import generate_password_hash
@@ -39,7 +40,13 @@ def claims_page(id):
 @profile_bp.route("/mypolicies/<id>")
 @login_required
 def my_policies_page(id):
-    policies = UserPolicy.query.get(id)
+    # get all policies that the user has
+    user_policies = UserPolicy.query.get(id)
+    user_policies_data = [user_policy.to_dict() for user_policy in user_policies]
+    policies = [
+        Policy.query.get(user_policy_data["policy_id"])
+        for user_policy_data in user_policies_data
+    ]
     if policies is None:
         return render_template("nopolicies.html")
     return render_template("mypolicies.html", policies=policies.to_dict())
