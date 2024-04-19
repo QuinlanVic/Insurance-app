@@ -26,7 +26,7 @@ def profile_page(id):
     return render_template("profile.html", profile=profile.to_dict())
 
 
-# Define a route for the claims page
+# Define a route for the claims page (user id)
 @profile_bp.route("/claims/<id>")
 @login_required
 def claims_page(id):
@@ -36,19 +36,25 @@ def claims_page(id):
     return render_template("claims.html", claims=claims.to_dict())
 
 
-# Define a route for the claims page
+# Define a route for the "my policies" page (user id)
 @profile_bp.route("/mypolicies/<id>")
 @login_required
 def my_policies_page(id):
     # get all policies that the user has
     user_policies = UserPolicy.query.get(id)
+    print(user_policies)
+    # if they have no policies load this page
+    if user_policies is None:
+        return render_template("nopolicies.html")
+    # if they do have policies
+    print(type(user_policies))
+    # convert to dictionaries
     user_policies_data = [user_policy.to_dict() for user_policy in user_policies]
+    # get only the policy data
     policies = [
         Policy.query.get(user_policy_data["policy_id"])
         for user_policy_data in user_policies_data
     ]
-    if policies is None:
-        return render_template("nopolicies.html")
     return render_template("mypolicies.html", policies=policies.to_dict())
 
 

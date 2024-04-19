@@ -576,6 +576,10 @@
     outline: none;
   }
 
+  .add-but {
+    text-decoration: none;
+  }
+
 /* Clear floats after the columns */
 .form-group::after {
     content: "";

@@ -173,6 +173,7 @@ def logout():
 @user_bp.route("/takeoutpolicy", methods=["POST"])
 @login_required
 def take_out_policy():
+    # get the user's id and the policy's id and add to this new table
     new_user_policy = UserPolicy(
         user_id=request.form.get("user_id"), policy_id=request.form.get("policy_id")
     )
@@ -180,8 +181,8 @@ def take_out_policy():
     try:
         # try to add the new policy
         db.session.add(new_user_policy)
-        # db.session.commit()
-    except:
+        db.session.commit()
+    except Exception as e:
         db.session.rollback()  # Undo the change (cannot be done if already committed)
         return f"<h1>An error occured: {str(e)}</h1>", 500
     flash("You have successfully applied for a new policy!")

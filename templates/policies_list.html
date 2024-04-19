@@ -5,7 +5,7 @@
 {% block content %}
     <h1 class = "heading-policies">Policies</h1>
     {% if current_user.email == 'admin123@gmail.com' %}
-        <a href="/policieslist/add"><button class="button-15" type="submit">Add Policy</button></a>
+        <a href="/policieslist/add" class="add-but"><button class="button-15" type="submit">Add Policy</button></a>
     {% endif %}
     <div class="all-policies">
         {%for policy in policies%}
@@ -19,8 +19,9 @@
             <div class="policy-action">
                 <a href="/policieslist/{{policy['id']}}">Read More ...</a>
                 <!-- If logged in allow to take out policy else tell them they need to login to do so -->
-                {% if current_user.is_authenticated and current_user.email != 'admin123@gmail.com' %}
+                {% if current_user.is_authenticated and not current_user.email == 'admin123@gmail.com' %}
                 <form class="addpolicy-form" action="{{url_for('user.take_out_policy')}}" method="post">
+                    <input name= "user_id" type="text" value="{{current_user.id}}" hidden>
                     <input name= "policy_id" type="text" value="{{policy.id}}" hidden>
                     <button type="submit" class="button-15">Take out this policy</button>
                 </form>

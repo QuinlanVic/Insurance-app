@@ -81,6 +81,7 @@ def new_policy_list():
         db.session.commit()
         # get all policies
         policy_list = Policy.query.all()
+        print(type(policy_list))
         # convert to a list of dict
         data = [policy.to_dict() for policy in policy_list]
         # go back to policies page after adding new policy
