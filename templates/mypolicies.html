@@ -3,24 +3,38 @@
 {% block title %} My Policies {% endblock %}
 {% block content %}
     <h1 class = "heading-policies">My Policies</h1>
-    <div class="middle">
-        <div class="topic-container">
-            <img class = "topic-pic" src="{{policies['pic']}}" alt="policies pic">
-            <div class="lspec-rspec">
-                <p class="name">{{policies["name"]}}</p>
-                <p class="email">{{policies["email"]}}</p>
+    {% if current_user.email == 'admin123@gmail.com' %}
+        <a href="/policieslist/add" class="add-but"><button class="button-15" type="submit">Add Policy</button></a>
+    {% endif %}
+    <div class="all-policies">
+        {%for policy in policies%}
+        <div class="policy-container">
+            <img class = "policy-poster" src="{{policy['poster']}}" alt="policy poster">
+            <div class="name-price">
+                <p class="name">{{policy["name"]}}</p>
+                <p class="price">R{{policy["price"]}}p/m</p>
             </div>
-            <p class="policies-policy_id"> {% if policies["policy_id"] != "0" %} You have the car insurance policy with the id {{policies["policy_id"]}} {% else %} You currently have no insurance products with us {% endif %}</p>
-            <div class="topic-action">
-                <form class="addpolicies-form" action="{{url_for('policies.update_policies_page')}}" method="post">
-                    <input name= "policies" type="text" value="{{policies}}" hidden>
-                    <button type="submit" class="button-15">Update</button>
-                </form>
-                <form class="addpolicies-form" action="{{url_for('policies.delete_user_by_id')}}" method="post">
-                    <input name= "policies_id" type="text" value="{{policies.id}}" hidden>
+            <p class="policy-desc"> {{policy["desc"]}}</p>
+            <div class="policy-action">
+                <a href="/policieslist/{{policy['id']}}">Read More ...</a>
+                <!-- Users can choose to terminate their policy -->
+                <form class="addpolicy-form" action="{{url_for('profile.terminate_policy_by_id')}}" method="post">
+                    <input name= "policy_id" type="text" value="{{policy.id}}" hidden>
                     <button type="submit" class="button-15">Terminate</button>
                 </form>
+                <!-- if admin then add CRUD operation buttons -->
+                {% if current_user.email == 'admin123@gmail.com' %}
+                    <form class="addpolicy-form" action="{{url_for('policieslist.update_policy_page')}}" method="post">
+                        <input name= "policy" type="text" value="{{policy}}" hidden>
+                        <button type="submit" class="button-15">Update</button>
+                    </form>
+                    <form class="addpolicy-form" action="{{url_for('policieslist.delete_policy_by_id')}}" method="post">
+                        <input name= "policy_id" type="text" value="{{policy.id}}" hidden>
+                        <button type="submit" class="button-15">Delete</button>
+                    </form>
+                {% endif %}
             </div>
         </div>
+        {% endfor %}
     </div>
 {% endblock %}

@@ -4,6 +4,8 @@ from models.user import User, UserPolicy, UserClaim
 from models.policy import Policy
 from extensions import db
 
+from sqlalchemy import select
+
 from werkzeug.security import generate_password_hash
 
 from flask_login import login_required
@@ -41,21 +43,52 @@ def claims_page(id):
 @login_required
 def my_policies_page(id):
     # get all policies that the user has
-    user_policies = UserPolicy.query.get(id)
+    # user_policies = UserPolicy.query.get(id)
+    stmt = select(UserPolicy).where(UserPolicy.user_id == id)
+    result = db.session.execute(stmt)
+    user_policies = []
+    for user_obj in result.scalars():
+        user_policies.append(user_obj.policy_id)
     print(user_policies)
     # if they have no policies load this page
     if user_policies is None:
         return render_template("nopolicies.html")
     # if they do have policies
     print(type(user_policies))
-    # convert to dictionaries
-    user_policies_data = [user_policy.to_dict() for user_policy in user_policies]
     # get only the policy data
     policies = [
-        Policy.query.get(user_policy_data["policy_id"])
-        for user_policy_data in user_policies_data
+        Policy.query.get(user_policy_data).to_dict()
+        for user_policy_data in user_policies
     ]
-    return render_template("mypolicies.html", policies=policies.to_dict())
+    return render_template("mypolicies.html", policies=policies)
+
+
+# User wants to terminate their policy
+# delete policy from UserPolicy after pressing button
+@profile_bp.route("/mypolicies/terminate", methods=["POST"])
+def terminate_policy_by_id():
+    # get name from form
+    id = request.form.get("policy_id")
+    # get the specific policy
+    policy = Policy.query.get(id)
+    # test if we found the correct id value
+    # print(request.form.get("policy_id"))
+    # policy = Policy.query.get(id)
+    if not policy:
+        # return jsonify({"message": "Policy not found"}), 404
+        # Do not return JSON data as you want to display the information on the screen
+        return "<h1>Policy not found</h1>", 404
+    # otherwise delete it
+    try:
+        db.session.delete(policy)
+        db.session.commit()
+        # return jsonify({"message": "Policy deleted successfully", "data": policy.to_dict()})
+        # Do not return JSON data as you want to display the information on the screen
+        return f"<h1>{policy.to_dict()['name']} successfully deleted</h1>"
+    except Exception as e:
+        # return jsonify({"error": str(e)})
+        # Do not return JSON data as you want to display the information on the screen to the user
+        return f"<h1>An error occured: {str(e)}</h1>", 500
 
 
 # /profile/update -> Update profile form (existing fields) -> Submit -> /profile/id
