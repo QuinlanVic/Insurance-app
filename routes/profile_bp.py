@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 
-from models.user import User, UserPolicy, UserClaim
+from models.user import User, UserPolicy, UserClaim, Claim
 from models.policy import Policy
 from extensions import db
 
@@ -32,10 +32,25 @@ def profile_page(id):
 @profile_bp.route("/claims/<id>")
 @login_required
 def claims_page(id):
-    claims = UserClaim.query.get(id)
-    if claims is None:
+    # get all claims that the user has made
+    # claims = UserClaim.query.get(id)
+    stmt = select(UserClaim).where(UserClaim.user_id == id)
+    result = db.session.execute(stmt)
+    user_claims = []
+    for user_obj in result.scalars():
+        user_claims.append(user_obj.claim_id)
+    print(user_claims)
+    # if they have no claims load this page
+    if user_claims == []:
         return render_template("noclaims.html")
-    return render_template("claims.html", claims=claims.to_dict())
+    # if they do have claims
+    print(user_claims)
+    print(type(user_claims))
+    # get only claim data
+    claims = [
+        Claim.query.get(user_claim_data).to_dict() for user_claim_data in user_claims
+    ]
+    return render_template("claims.html", claims=claims)
 
 
 # Define a route for the "my policies" page (user id)
@@ -51,7 +66,7 @@ def my_policies_page(id):
         user_policies.append(user_obj.policy_id)
     print(user_policies)
     # if they have no policies load this page
-    if user_policies is None:
+    if user_policies == []:
         return render_template("nopolicies.html")
     # if they do have policies
     print(type(user_policies))
@@ -85,6 +100,31 @@ def terminate_policy_by_id():
         # return jsonify({"message": "Policy deleted successfully", "data": policy.to_dict()})
         # Do not return JSON data as you want to display the information on the screen
         return f"<h1>{policy.to_dict()['name']} successfully deleted</h1>"
+    except Exception as e:
+        # return jsonify({"error": str(e)})
+        # Do not return JSON data as you want to display the information on the screen to the user
+        return f"<h1>An error occured: {str(e)}</h1>", 500
+
+
+# User wants to terminate their claim
+# delete claim from UserClaim and Claim after pressing button
+@profile_bp.route("/claims/terminate", methods=["POST"])
+def terminate_claim_by_id():
+    # get name from form
+    id = request.form.get("claim_id")
+    # get the specific policy
+    claim = Claim.query.get(id)
+    if not claim:
+        # return jsonify({"message": "Policy not found"}), 404
+        # Do not return JSON data as you want to display the information on the screen
+        return "<h1>Claim not found</h1>", 404
+    # otherwise delete it
+    try:
+        db.session.delete(claim)
+        db.session.commit()
+        # return jsonify({"message": "Policy deleted successfully", "data": policy.to_dict()})
+        # Do not return JSON data as you want to display the information on the screen
+        return f"<h1>{claim.to_dict()['id']} successfully deleted</h1>"
     except Exception as e:
         # return jsonify({"error": str(e)})
         # Do not return JSON data as you want to display the information on the screen to the user

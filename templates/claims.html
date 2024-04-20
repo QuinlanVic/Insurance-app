@@ -3,24 +3,36 @@
 {% block title %} My Claims {% endblock %}
 {% block content %}
     <h1 class = "heading-policies">My Claims</h1>
-    <div class="middle">
-        <div class="topic-container">
-            <img class = "topic-pic" src="{{claims['pic']}}" alt="claims pic">
-            <div class="lspec-rspec">
-                <p class="name">{{claims["name"]}}</p>
-                <p class="email">{{claims["email"]}}</p>
+    {% if current_user.email == 'admin123@gmail.com' %}
+        <a href="/policieslist/add" class="add-but"><button class="button-15" type="submit">Add Claim</button></a>
+    {% endif %}
+    <div class="all-policies">
+        {%for claim in claims%}
+        <div class="policy-container">
+            <div class="name-price">
+                <p class="name">{{current_user.name}}</p>
+                <p class="price">R{{claim["amount"]}} claim</p>
             </div>
-            <p class="claims-policy_id"> {% if claims["policy_id"] != "0" %} You have the car insurance policy with the id {{claims["policy_id"]}} {% else %} You currently have no insurance products with us {% endif %}</p>
-            <div class="topic-action">
-                <form class="addclaims-form" action="{{url_for('claims.update_claims_page')}}" method="post">
-                    <input name= "claims" type="text" value="{{claims}}" hidden>
-                    <button type="submit" class="button-15">Update</button>
-                </form>
-                <form class="addclaims-form" action="{{url_for('claims.delete_user_by_id')}}" method="post">
-                    <input name= "claims_id" type="text" value="{{claims.id}}" hidden>
+            <p class="policy-desc"> {{claim["desc"]}}</p>
+            <div class="policy-action">
+                <!-- Users can choose to delete their claim -->
+                <form class="addpolicy-form" action="{{url_for('profile.terminate_claim_by_id')}}" method="post">
+                    <input name= "claim_id" type="text" value="{{claim.id}}" hidden>
                     <button type="submit" class="button-15">Delete</button>
                 </form>
+                <!-- if admin then add CRUD operation buttons -->
+                <!-- {% if current_user.email == 'admin123@gmail.com' %}
+                    <form class="addpolicy-form" action="{{url_for('policieslist.update_claim_page')}}" method="post">
+                        <input name= "claim" type="text" value="{{claim}}" hidden>
+                        <button type="submit" class="button-15">Update</button>
+                    </form>
+                    <form class="addpolicy-form" action="{{url_for('policieslist.delete_claim_by_id')}}" method="post">
+                        <input name= "claim_id" type="text" value="{{claim.id}}" hidden>
+                        <button type="submit" class="button-15">Delete</button>
+                    </form>
+                {% endif %} -->
             </div>
         </div>
+        {% endfor %}
     </div>
 {% endblock %}

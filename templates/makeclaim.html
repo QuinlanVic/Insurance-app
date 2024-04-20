@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Make Claim {% endblock %}
+
+{% block content %}
+    <div class="login-container">
+        <h1 class = "login-heading">Claim</h1>
+        <div class="q">
+            <a href="/profile/claims/{{current_user.id}}">Want to check out your existing claims?</a>
+        </div>
+        <!-- if we want to refer to the current URL but with different action as POST -->
+        <div class="form-container">
+            <form class="login-form" action="" method="post">
+                <!-- Hidden input field with token as value (CSRF) -->
+                {{form.hidden_tag()}}
+                <!-- add labels so users always know what they must type in -->
+                <div class="form-group">
+                    <!-- add "is-invalid" next to "form-control" if there are errors -->
+                    <div class="col-25">{{form.amount.label}}:</div> <div class="col-75">{{form.amount(placeholder="5000", class="fill-in")}}</div>
+                </div>
+                <div class="form-group">
+                    <div class="col-25">{{form.desc.label}}:</div> <div class="col-75">{{form.desc(placeholder="I got into an accident and need repairs", class="fill-in")}}</div>
+                </div>
+                {{form.submit(class="button-15")}}
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 
 from extensions import db
 
-from models.user import User, UserPolicy, UserClaim
+from models.user import User, UserPolicy, UserClaim, Claim
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -14,7 +14,7 @@ user_bp = Blueprint("user", __name__)
 
 
 # from + import combo to only import what we need to improve performance
-from wtforms import StringField, PasswordField, SubmitField, EmailField
+from wtforms import StringField, PasswordField, SubmitField, EmailField, FloatField
 from wtforms.validators import InputRequired, Length, ValidationError
 
 from flask_login import login_user, login_required, logout_user
@@ -173,6 +173,16 @@ def logout():
 @user_bp.route("/takeoutpolicy", methods=["POST"])
 @login_required
 def take_out_policy():
+    # check if policy is already in UserPolicy
+    specific_policy = UserPolicy.query.filter_by(
+        policy_id=request.form.get("policy_id")
+    ).first()
+    print(specific_policy)
+
+    # if it does exist then user cannot take out the policy and flash them a message
+    if specific_policy:
+        flash("You have already taken out the " + f"{specific_policy.name} policy")
+        return redirect(url_for("policieslist.policies_list_page"))
     # get the user's id and the policy's id and add to this new table
     new_user_policy = UserPolicy(
         user_id=request.form.get("user_id"), policy_id=request.form.get("policy_id")
@@ -188,6 +198,55 @@ def take_out_policy():
     flash("You have successfully applied for a new policy!")
     flash("We will inform you via email whether it is successful or not :)")
     return redirect(url_for("policieslist.policies_list_page"))
+
+
+# claim validation
+class ClaimForm(FlaskForm):
+    amount = FloatField("Amount", validators=[InputRequired()])
+    desc = StringField("Description", validators=[InputRequired(), Length(min=15)])
+    submit = SubmitField("Make Claim")
+
+
+# GET = Route for the make claim page (user id)
+# POST = When a User makes a claim
+@user_bp.route("/makeclaim/<id>", methods=["GET", "POST"])
+@login_required
+def make_claim_page(id):
+    # GET & POST
+    # create a new form object
+    form = ClaimForm()
+
+    # only on POST (when claim is being made)
+    if form.validate_on_submit():
+        # we are making a new claim
+        new_claim = Claim(
+            amount=request.form.get("amount"), desc=request.form.get("desc")
+        )
+        # do some database stuff here later
+        try:
+            # try to add the new claim
+            db.session.add(new_claim)
+            db.session.commit()
+            # NOW ADD TO UserClaim table
+            # get the user's id and the claim's id and add to this new table
+            new_user_claim = UserClaim(user_id=id, claim_id=new_claim.id)
+            # do some database stuff here later
+            try:
+                # try to add the new user_claim
+                db.session.add(new_user_claim)
+                db.session.commit()
+            except Exception as e:
+                db.session.rollback()  # Undo the change (cannot be done if already committed)
+                return f"<h1>An error occured: {str(e)}</h1>", 500
+        except Exception as e:
+            db.session.rollback()  # Undo the change (cannot be done if already committed)
+            return f"<h1>An error occured: {str(e)}</h1>", 500
+        flash("You have successfully created a new claim!")
+        flash("We will inform you via email whether it is successful or not :)")
+        return redirect(url_for("profile.claims_page", id=id))
+
+    # only on GET
+    return render_template("makeclaim.html", form=form)
 
 
 # store tokens in browser (local storage or cookies) (gets given after signing up/logging in)
