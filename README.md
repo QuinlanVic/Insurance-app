@@ -7,11 +7,11 @@ Lastly, and most importantly it allows users to calculate car insurance quotes a
 The admin view allows the admin user to manipulate all of the data stored using CRUD operations.
 
 ## Application structure
-User has access to most pages except Profile, My Policies and Claims. 
+User has access to most pages except Profile, My Policies, My Claims and Make a Claim. 
 They can browse all other pages without having to log in. 
 They can also calculate quotes.
-To access more functionality they have to login or register.
-From there they can check out their profile and policies and claims.
+To access more functionality they have to login or register/sign up.
+From there they can check out their profile, policies and claims as well as take out new policies and make new claims.
 Additionally there is an "admin" view which is the same as a users except they can 
 update, create and delete articles, policies, users, claims and employees (some still to be implemented).
 

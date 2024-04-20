@@ -1,28 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Profile</title>
-    <style>
-        .upuser-form {
-            display: grid;
-            gap: 12px;
-        }
-    </style>
-</head>
-<body>
-    <!-- Have to use GET or POST as these 2 methods are the only 2 supported by forms -->
-    <!-- POST (more secure) -->
-    <form class="upuser-form" action="{{url_for('profile.update_profile')}}" method="post">
-        <!-- input element to accept user input -->
-        <!-- name = key for your value -->
-        <input hidden name="id" type="text" value="{{user['id']}}"/>
-        <input name="name" type="text" value="{{user['name']}}"/>
-        <input name="email" type="text" value="{{user['email']}}"/>        
-        <input name="password" type="text" value="" placeholder="new password"/>
-        <input name="pic" type="text" value="{{user['pic']}}" placeholder="new profile pic"/>
-        <button type="submit" class="button-15">Update profile</button>
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %} Update Profile {% endblock %}
+{% block content %}
+    <div class="signup-container">
+        <h1 class="login-heading">Update Profile</h1>
+        <!-- if we want to refer to the current URL but with different action as POST -->
+        <form class="login-form" action="" method="POST">
+            <!-- Hidden input field with token as value (CSRF) -->
+            {{form.hidden_tag()}}
+            <!-- display error(s) from "validate_email"-->
+            {% if form.email.errors %}
+
+                {% for error in form.email.errors %}
+                    <div style="color:red">{{error}}</div>
+                {% endfor %}
+
+            {% endif %}
+
+            <!-- add labels so users always know what they must type in -->
+            <input hidden name="id" type="text" value="{{user['id']}}"/>
+            <div class="form-group">
+                {{form.name.label}}: {{form.name(placeholder="Name", class="fill-in", value="{{user['name']}}")}}
+            </div>
+            <div class="form-group">
+                {{form.email.label}}: {{form.email(placeholder="Email", class="fill-in", value ="{{user['email']}}")}}
+            </div>
+            <div class="form-group">
+                {{form.password.label}}: {{form.password(placeholder="New Password", class="fill-in", value="{{user['password']}}")}}
+            </div>
+            <div class="form-group">
+                {{form.pic.label}}: {{form.pic(placeholder="New profile Pic", class="fill-in", value="{{user['pic']}}")}}
+            </div>
+            <!-- <input name="pic" type="text" value="{{user['pic']}}" placeholder="new profile pic"/> -->
+            {{form.submit(class="button-15")}}
+        </form>
+    </div>
+{% endblock %}

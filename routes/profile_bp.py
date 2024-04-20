@@ -1,5 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 
+from flask_wtf import FlaskForm
+
+from werkzeug.security import generate_password_hash
+
 from models.user import User, UserPolicy, UserClaim, Claim
 from models.policy import Policy
 from extensions import db
@@ -13,6 +17,9 @@ from flask_login import login_required
 import json
 
 profile_bp = Blueprint("profile", __name__)
+
+from wtforms import StringField, PasswordField, SubmitField, EmailField, FloatField
+from wtforms.validators import InputRequired, Length, ValidationError
 
 # ********* All PROFILE URLS ***********
 # Defines View part of web application
@@ -78,6 +85,9 @@ def my_policies_page(id):
     return render_template("mypolicies.html", policies=policies)
 
 
+# ***** FORM ACTION CRUD OPERATIONS *****
+
+
 # User wants to terminate their policy
 # delete policy from UserPolicy after pressing button
 @profile_bp.route("/mypolicies/terminate", methods=["POST"])
@@ -131,12 +141,90 @@ def terminate_claim_by_id():
         return f"<h1>An error occured: {str(e)}</h1>", 500
 
 
-# /profile/update -> Update profile form (existing fields) -> Submit -> /profile/id
-# Has to be post to pass the data via body ("GET" uses URL)
-# take you to update form with data after manipulation
-@profile_bp.route("/update", methods=["POST"])
+# update user form validation
+class UpdateProfileForm(FlaskForm):
+    name = StringField("Name", validators=[InputRequired(), Length(min=6)])
+    email = EmailField("Email", validators=[InputRequired()])
+    password = PasswordField(
+        "Password", validators=[InputRequired(), Length(min=8, max=12)]
+    )
+    pic = StringField("Picture")
+    submit = SubmitField("Update profile")
+
+    # use WTF to send user back to signup page if input is invalid
+    # automatically runs when the "form.validate_on_submit()" function executes
+    # class method (instance and data from user form via field)
+    # validate_<field name>
+    def validate_email(self, field):
+        # inform WTF that there is an error and display it
+        print("Validate email was called (reg)", field.data)
+        # only do this if the email has changed
+        if self.email != field.data:
+            # check if there is an existing email
+            specific_user = User.query.filter_by(email=field.data).first()
+            # print(specific_user)
+
+            # if it does exist then user cannot sign up and send them back to signup page
+            if specific_user:
+                # the message below is displayed in the "div" in the signup form
+                raise ValidationError("Email already exists")
+
+
+# update profile page
+@profile_bp.route("/update", methods=["GET", "POST"])
 @login_required
-def update_profile_page():
+def update_profile():
+    form = UpdateProfileForm()
+
+    # only on POST (when user is updating profile)
+    if form.validate_on_submit():
+        # if the email has changed then check if it is already in the database
+        ori_email = User.query.get(request.form.get("id"))
+        print(ori_email.email)
+        if ori_email.email != form.email.data:
+            # check if there is an existing email
+            specific_user = User.query.filter_by(email=form.email.data).first()
+        user_id = request.form.get("id")
+        user_name = request.form.get("name")
+        user_email = request.form.get("email")
+        user_password = generate_password_hash(request.form.get("password"))
+        user_pic = request.form.get("pic")
+        user_policy_id = request.form.get("policy_id")
+        update_data = {
+            "name": user_name,
+            "email": user_email,
+            "password": user_password,
+            "pic": user_pic,
+            "policy_id": user_policy_id,
+        }
+        specific_user = User.query.get(user_id)
+        if specific_user is None:
+            return "<h1>user not found</h1>"
+        try:
+            # update all values in "specific_user" with values from "update_data" dictionary
+            # loop body as you only want to work with specific keys we need to update
+            for key, value in update_data.items():
+                # if they put in random keys it will change it which is unsafe!!!!
+                # specific_user.key = update_data.get(key, specific_user.key)
+                # so now we check if the key is in the table and only work with it if it is
+                if hasattr(specific_user, key):
+                    # now update those values
+                    setattr(specific_user, key, value)
+            db.session.commit()
+            # now take them back to the profile page
+            # return f"{specific_user.name} successfully updated", render_template("profile.html")
+            flash(f"{specific_user.name} " + "successfully updated")
+            next = request.args.get("next")
+            # url_has_allowed_host_and_scheme should check if the url is safe
+            # for redirects, meaning it matches the request host.
+            # if not url_has_allowed_host_and_scheme(next, request.host):
+            #     return abort(400)
+            # return f"<h1>Welcome back, {specific_user.name}"
+            return redirect(next or url_for("main.index_page"))
+        except Exception as e:
+            return f"<h1>An error occured: {str(e)}</h1>"
+
+    # Only on GET
     # get the user
     user = request.form.get("profile")
     print(user)
@@ -147,10 +235,7 @@ def update_profile_page():
     user_dict = json.loads(user_json)
     print(type(user_dict))
     # now render the update profile page with user information
-    return render_template("updateprofile.html", user=user_dict)
-
-
-# ***** FORM ACTION CRUD OPERATIONS *****
+    return render_template("updateprofile.html", form=form, user=user)
 
 
 # delete user profile from db (after clicking button)
@@ -189,51 +274,3 @@ def delete_user_by_id():
         # return jsonify({"An error occured:": str(e)})
         # Do not return JSON data as you want to display the information on the screen to the user
         return f"<h1>An error occured: {str(e)}</h1>", 500
-
-
-# update user
-# UPDATE PROFILE FORM TO SQL DATABASE NOW NOT LOCAL
-# has to be a different url or it will do the other "/update" above as
-# it also uses a POST method because it has to for passing data via body ("GET" uses URL)
-@profile_bp.route("/update/db", methods=["POST"])
-@login_required
-def update_profile():
-    user_id = request.form.get("id")
-    user_name = request.form.get("name")
-    user_email = request.form.get("email")
-    user_password = generate_password_hash(request.form.get("password"))
-    user_pic = request.form.get("pic")
-    user_policy_id = request.form.get("policy_id")
-    update_data = {
-        "name": user_name,
-        "email": user_email,
-        "password": user_password,
-        "pic": user_pic,
-        "policy_id": user_policy_id,
-    }
-    specific_user = User.query.get(user_id)
-    if specific_user is None:
-        return "<h1>user not found</h1>"
-    try:
-        # update all values in "specific_user" with values from "update_data" dictionary
-        # loop body as you only want to work with specific keys we need to update
-        for key, value in update_data.items():
-            # if they put in random keys it will change it which is unsafe!!!!
-            # specific_user.key = update_data.get(key, specific_user.key)
-            # so now we check if the key is in the table and only work with it if it is
-            if hasattr(specific_user, key):
-                # now update those values
-                setattr(specific_user, key, value)
-        db.session.commit()
-        # now take them back to the profile page
-        # return f"{specific_user.name} successfully updated", render_template("profile.html")
-        flash(f"{specific_user.name} " + "successfully updated")
-        next = request.args.get("next")
-        # url_has_allowed_host_and_scheme should check if the url is safe
-        # for redirects, meaning it matches the request host.
-        # if not url_has_allowed_host_and_scheme(next, request.host):
-        #     return abort(400)
-        # return f"<h1>Welcome back, {specific_user.name}"
-        return redirect(next or url_for("main.index_page"))
-    except Exception as e:
-        return f"<h1>An error occured: {str(e)}</h1>"

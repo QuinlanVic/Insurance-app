@@ -6,6 +6,8 @@ from extensions import db
 
 from models.user import User, UserPolicy, UserClaim, Claim
 
+from models.policy import Policy
+
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # from django.utils.http import url_has_allowed_host_and_scheme
@@ -175,13 +177,13 @@ def logout():
 def take_out_policy():
     # check if policy is already in UserPolicy
     specific_policy = UserPolicy.query.filter_by(
-        policy_id=request.form.get("policy_id")
+        user_id=request.form.get("user_id"), policy_id=request.form.get("policy_id")
     ).first()
     print(specific_policy)
-
+    curr_policy = Policy.query.get(request.form.get("policy_id"))
     # if it does exist then user cannot take out the policy and flash them a message
     if specific_policy:
-        flash("You have already taken out the " + f"{specific_policy.name} policy")
+        flash("You have already taken out the " + f"{curr_policy.name} policy")
         return redirect(url_for("policieslist.policies_list_page"))
     # get the user's id and the policy's id and add to this new table
     new_user_policy = UserPolicy(
