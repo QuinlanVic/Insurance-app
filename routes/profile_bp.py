@@ -95,21 +95,21 @@ def terminate_policy_by_id():
     # get name from form
     id = request.form.get("policy_id")
     # get the specific policy
-    policy = Policy.query.get(id)
+    user_policy = UserPolicy.query.filter_by(policy_id=id).first()
     # test if we found the correct id value
     # print(request.form.get("policy_id"))
     # policy = Policy.query.get(id)
-    if not policy:
+    if not user_policy:
         # return jsonify({"message": "Policy not found"}), 404
         # Do not return JSON data as you want to display the information on the screen
         return "<h1>Policy not found</h1>", 404
     # otherwise delete it
     try:
-        db.session.delete(policy)
+        db.session.delete(user_policy)
         db.session.commit()
-        # return jsonify({"message": "Policy deleted successfully", "data": policy.to_dict()})
-        # Do not return JSON data as you want to display the information on the screen
-        return f"<h1>{policy.to_dict()['name']} successfully deleted</h1>"
+        policy_name = Policy.query.get(id)
+        flash(f"{policy_name.to_dict()['name']} successfully terminated")
+        return redirect(url_for("profile.my_policies_page", id=user_policy.user_id))
     except Exception as e:
         # return jsonify({"error": str(e)})
         # Do not return JSON data as you want to display the information on the screen to the user
@@ -121,20 +121,25 @@ def terminate_policy_by_id():
 @profile_bp.route("/claims/terminate", methods=["POST"])
 def terminate_claim_by_id():
     # get name from form
-    id = request.form.get("claim_id")
-    # get the specific policy
-    claim = Claim.query.get(id)
+    claim_id = request.form.get("claim_id")
+    # get the user_claim from usersclaims table
+    user_claim = UserClaim.query.filter_by(claim_id=claim_id).first()
+    # get the specific claim from claims table
+    claim = Claim.query.get(claim_id)
     if not claim:
         # return jsonify({"message": "Policy not found"}), 404
         # Do not return JSON data as you want to display the information on the screen
         return "<h1>Claim not found</h1>", 404
-    # otherwise delete it
+    # otherwise delete claim from claims table and usersclaims table
     try:
+        # delete from usersclaims table first
+        db.session.delete(user_claim)
+        db.session.commit()
+        # delete from claims table second
         db.session.delete(claim)
         db.session.commit()
-        # return jsonify({"message": "Policy deleted successfully", "data": policy.to_dict()})
-        # Do not return JSON data as you want to display the information on the screen
-        return f"<h1>{claim.to_dict()['id']} successfully deleted</h1>"
+        flash("Claim successfully terminated")
+        return redirect(url_for("profile.claims_page", id=user_claim.user_id))
     except Exception as e:
         # return jsonify({"error": str(e)})
         # Do not return JSON data as you want to display the information on the screen to the user
@@ -143,11 +148,9 @@ def terminate_claim_by_id():
 
 # update user form validation
 class UpdateProfileForm(FlaskForm):
-    name = StringField("Name", validators=[InputRequired(), Length(min=6)])
-    email = EmailField("Email", validators=[InputRequired()])
-    password = PasswordField(
-        "Password", validators=[InputRequired(), Length(min=8, max=12)]
-    )
+    name = StringField("Name", validators=[Length(min=6)])
+    email = EmailField("Email")
+    password = PasswordField("Password", validators=[Length(min=8, max=12)])
     pic = StringField("Picture")
     submit = SubmitField("Update profile")
 
@@ -155,48 +158,51 @@ class UpdateProfileForm(FlaskForm):
     # automatically runs when the "form.validate_on_submit()" function executes
     # class method (instance and data from user form via field)
     # validate_<field name>
-    def validate_email(self, field):
-        # inform WTF that there is an error and display it
-        print("Validate email was called (reg)", field.data)
-        # only do this if the email has changed
-        if self.email != field.data:
-            # check if there is an existing email
-            specific_user = User.query.filter_by(email=field.data).first()
-            # print(specific_user)
+    # def validate_email(self, field):
+    #     # inform WTF that there is an error and display it
+    #     print("Validate email was called (reg)", field.data)
+    #     # only do this if the email has changed
+    #     if self.email != field.data:
+    #         print(self)
+    #         print(self.email, field.data)
+    #         # check if there is an existing email
+    #         specific_user = User.query.filter_by(email=field.data).first()
+    #         # print(specific_user)
 
-            # if it does exist then user cannot sign up and send them back to signup page
-            if specific_user:
-                # the message below is displayed in the "div" in the signup form
-                raise ValidationError("Email already exists")
+    #         # if it does exist then user cannot sign up and send them back to signup page
+    #         if specific_user:
+    #             # the message below is displayed in the "div" in the signup form
+    #             raise ValidationError("Email already exists")
 
 
 # update profile page
-@profile_bp.route("/update", methods=["GET", "POST"])
+@profile_bp.route("/update/<id>", methods=["GET", "POST"])
 @login_required
-def update_profile():
+def update_profile(id):
     form = UpdateProfileForm()
 
     # only on POST (when user is updating profile)
     if form.validate_on_submit():
+        print("GOT IN POST")
         # if the email has changed then check if it is already in the database
         ori_email = User.query.get(request.form.get("id"))
         print(ori_email.email)
         if ori_email.email != form.email.data:
             # check if there is an existing email
             specific_user = User.query.filter_by(email=form.email.data).first()
-        user_id = request.form.get("id")
-        user_name = request.form.get("name")
-        user_email = request.form.get("email")
-        user_password = generate_password_hash(request.form.get("password"))
-        user_pic = request.form.get("pic")
-        user_policy_id = request.form.get("policy_id")
-        update_data = {
-            "name": user_name,
-            "email": user_email,
-            "password": user_password,
-            "pic": user_pic,
-            "policy_id": user_policy_id,
-        }
+            user_id = request.form.get("id")
+            user_name = request.form.get("name")
+            user_email = request.form.get("email")
+            user_password = generate_password_hash(request.form.get("password"))
+            user_pic = request.form.get("pic")
+            user_policy_id = request.form.get("policy_id")
+            update_data = {
+                "name": user_name,
+                "email": user_email,
+                "password": user_password,
+                "pic": user_pic,
+                "policy_id": user_policy_id,
+            }
         specific_user = User.query.get(user_id)
         if specific_user is None:
             return "<h1>user not found</h1>"
@@ -226,16 +232,13 @@ def update_profile():
 
     # Only on GET
     # get the user
-    user = request.form.get("profile")
-    print(user)
-    print(type(user))
-    # funny error as JSON only supports single quotes LOLOLOLOLOL
-    user_json = user.replace("'", '"')
-    # convert into a dict
-    user_dict = json.loads(user_json)
-    print(type(user_dict))
+    # user = request.form.get("profile")
+    user = User.query.get(id)
+    user_dict = user.to_dict()
+    print("This is the user underneath:")
+    print(user_dict)
     # now render the update profile page with user information
-    return render_template("updateprofile.html", form=form, user=user)
+    return render_template("updateprofile.html", form=form, user=user_dict)
 
 
 # delete user profile from db (after clicking button)

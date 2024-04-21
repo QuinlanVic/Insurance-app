@@ -11,8 +11,8 @@
                 <p class="email">{{profile["email"]}}</p>
             </div>
             <div class="topic-action">
-                <form class="addprofile-form" action="{{url_for('profile.update_profile')}}" method="post">
-                    <input name= "profile" type="text" value="{{profile}}" hidden>
+                <form class="addprofile-form" action="{{url_for('profile.update_profile', id=profile.id)}}" method="get">
+                    <!-- <input name= "profile" type="text" value="{{profile}}" hidden> -->
                     <button type="submit" class="button-15">Update</button>
                 </form>
                 <form class="addprofile-form" action="{{url_for('profile.delete_user_by_id')}}" method="post">
