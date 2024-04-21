@@ -285,7 +285,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"EthanRich\",\r\n    \"email\": \"E.rich@gmail.com\",\r\n    \"password\": \"ethan123456\",\r\n    \"pic\": \"https://t4.ftcdn.net/jpg/02/45/56/35/360_F_245563558_XH9Pe5LJI2kr7VQuzQKAjAbz9PAyejG1.jpg\",\r\n    \"policy-id\": \"0\"\r\n}",
+					"raw": "{\r\n    \"name\": \"EthanRich\",\r\n    \"email\": \"E.rich@gmail.com\",\r\n    \"password\": \"ethan123456\",\r\n    \"pic\": \"https://t4.ftcdn.net/jpg/02/45/56/35/360_F_245563558_XH9Pe5LJI2kr7VQuzQKAjAbz9PAyejG1.jpg\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -316,7 +316,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"title\": \"Our Amazing Service\",\r\n        \"author\": \"Jermaine Fer\",\r\n        \"poster\": \"https://d39l2hkdp2esp1.cloudfront.net/img/photo/145768/145768_00_2x.jpg\",\r\n        \"desc\": \"At CoolWater we are focused on providing you with the best customer experience\"\r\n}",
+					"raw": "{\r\n    \"title\": \"24-hour Emergency Service\",\r\n        \"author\": \"Neo Deep\",\r\n        \"poster\": \"https://www.aa.co.nz/assets/motoring/blog/Driver-looking-under-bonnet-lemon.jpg\",\r\n        \"desc\": \"With CoolWater you have access to our 24-hour emergency service, 7 days a week, free of charge!\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -347,7 +347,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Paul Flex\",\r\n        \"job_title\": \"CEO\",\r\n        \"pic\": \"https://t4.ftcdn.net/jpg/06/35/15/47/360_F_635154757_zU5ZxxZe3Vs0hrrOQ9WBgNgX8s4Cw19s.jpg\",\r\n        \"desc\": \"Paul Flex is CoolWater's Chief Executive Officer\"\r\n}",
+					"raw": "{\r\n        \"name\": \"Mandla Ngcobo\",\r\n        \"job_title\": \"CHRO\",\r\n        \"pic\": \"https://www.goodthingsguy.com/wp-content/uploads/2020/07/vusi-thembekwayo-biography-age-net-worth-wife-2.jpg\",\r\n        \"desc\": \"Mandla Ngcobo is Coolwater's Chief Human Resources Officer\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -378,7 +378,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "\r\n{\r\n\"name\": \"WaterCool Car Insurance\",\r\n        \"price\": 3000,\r\n        \"poster\": \"https://i.pinimg.com/originals/56/c3/74/56c3744dc273cab7d050b9943d2accfa.jpg\",\r\n        \"desc\": \"WaterCool Car Insurance is targeted at those with sports cars\"\r\n}",
+					"raw": "\r\n{\r\n \"name\": \"CoolCool Car Insurance\",\r\n        \"price\": 2500,\r\n        \"poster\": \"https://c4.wallpaperflare.com/wallpaper/131/207/698/forest-rain-forest-ford-wallpaper-preview.jpg\",\r\n        \"desc\": \"CoolCool Car Insurance is targeted at those with antique vehicles\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
