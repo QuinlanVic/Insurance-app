@@ -12,6 +12,9 @@ After logging in, they can access their profile, policies and claims as well as 
 
 Additionally there is an "admin" view which is the same as a logged in users view except they can update, create and delete all application data i.e., articles, policies, users, claims and employees (some CRUD operations are still to be implemented).
 
+## UI coverage video 
+The google drive link below is to a video which showcases an explanation of the application's UI, covering each of its web pages:<br>
+https://drive.google.com/file/d/1A4aOEvUOM1euT765ILguXJzGMOzcY9EA/view?usp=drive_link
 
 ## Routing 
 Each file has an associated route that is defined in modular blueprints. These blueprints are loaded into the "app.py" file which manages and links the entire functionality of the application together. 
