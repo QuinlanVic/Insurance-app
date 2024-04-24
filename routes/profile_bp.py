@@ -250,6 +250,14 @@ def delete_user_by_id():
     # print(id) # test if we found the correct id value
     # get the specific user
     user = User.query.get(id)
+    print(user)
+    # get all their policies they have
+    user_policies = UserPolicy.query.filter_by(user_id=id).all()
+    print(user_policies)
+    # get all their claim entries
+    user_claims = UserClaim.query.filter_by(user_id=id).all()
+    print(user_claims)
+    # get all their claims? (maybe keep this as legacy data and it does not include their user id at all)
     # if the user is not found
     if not user:
         # return jsonify({"message": "user not found"}), 404
@@ -257,8 +265,18 @@ def delete_user_by_id():
         return "<h1>User not found</h1>", 404
     # otherwise delete user
     try:
+        # delete policies
+        for user_policy in user_policies:
+            db.session.delete(user_policy)
+            db.session.commit()
+        # delete claims
+        for user_claim in user_claims:
+            db.session.delete(user_claim)
+            db.session.commit()
+        # then only delete the user
         db.session.delete(user)
         db.session.commit()
+
         # return jsonify({"message": "user deleted successfully", "data": user.to_dict()})
         # Do not return JSON data as you want to display the information on the screen
         # take them back to home page
