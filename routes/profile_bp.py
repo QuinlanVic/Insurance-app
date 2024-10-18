@@ -19,7 +19,7 @@ import json
 profile_bp = Blueprint("profile", __name__)
 
 from wtforms import StringField, PasswordField, SubmitField, EmailField, FloatField
-from wtforms.validators import InputRequired, Length, ValidationError
+from wtforms.validators import InputRequired, Length, ValidationError, Optional
 
 # ********* All PROFILE URLS ***********
 # Defines View part of web application
@@ -148,10 +148,10 @@ def terminate_claim_by_id():
 
 # update user form validation
 class UpdateProfileForm(FlaskForm):
-    name = StringField("Name", validators=[Length(min=6)])
-    email = EmailField("Email")
-    password = PasswordField("Password", validators=[Length(min=8, max=12)])
-    pic = StringField("Picture")
+    name = StringField("Name", validators=[Optional(), Length(min=6)])
+    email = EmailField("Email", validators=[Optional()])
+    password = PasswordField("Password", validators=[Optional(), Length(min=8, max=12)])
+    pic = StringField("Picture", validators=[Optional()])
     submit = SubmitField("Update profile")
 
     # use WTF to send user back to signup page if input is invalid
@@ -180,32 +180,46 @@ class UpdateProfileForm(FlaskForm):
 @login_required
 def update_profile(id):
     form = UpdateProfileForm()
-
+    print("inside of update profile")
     # only on POST (when user is updating profile)
     if form.validate_on_submit():
         print("GOT IN POST")
         # if the email has changed then check if it is already in the database
-        ori_email = User.query.get(request.form.get("id"))
-        print(ori_email.email)
-        if ori_email.email != form.email.data:
+        user = User.query.get(request.form.get("id"))
+        print(user.email)
+
+        # extract data 
+        print(form.name.data)
+        user_name = form.name.data if form.name.data else user.name
+        user_email = form.email.data if form.email.data else user.email
+        user_password = generate_password_hash(form.password.data) if form.password.data else user.password
+        user_pic = form.pic.data if form.pic.data else user.pic
+
+
+        # user_id = request.form.get("id")
+        # user_name = request.form.get("name")
+        # user_email = request.form.get("email")
+        # user_password = generate_password_hash(request.form.get("password"))
+        # user_pic = request.form.get("pic")
+        # user_policy_id = request.form.get("policy_id")
+        if user.email != form.email.data:
             # check if there is an existing email
             specific_user = User.query.filter_by(email=form.email.data).first()
-            user_id = request.form.get("id")
-            user_name = request.form.get("name")
-            user_email = request.form.get("email")
-            user_password = generate_password_hash(request.form.get("password"))
-            user_pic = request.form.get("pic")
-            user_policy_id = request.form.get("policy_id")
-            update_data = {
-                "name": user_name,
-                "email": user_email,
-                "password": user_password,
-                "pic": user_pic,
-                "policy_id": user_policy_id,
-            }
-        specific_user = User.query.get(user_id)
+            if specific_user:
+                flash(f"{form.email.data} " + " email is already taken", "error")
+                return render_template("updateprofile.html", form=form, user=user_dict)
+            
+        # Create a dictionary of the updated data
+        update_data = {
+            "name": user_name,
+            "email": user_email,
+            "password": user_password,
+            "pic": user_pic,
+        }
+        specific_user = User.query.get(user.id)
         if specific_user is None:
-            return "<h1>user not found</h1>"
+            flash("User not found", "error")
+            return render_template("updateprofile.html", form=form, user=user_dict)
         try:
             # update all values in "specific_user" with values from "update_data" dictionary
             # loop body as you only want to work with specific keys we need to update
@@ -219,7 +233,7 @@ def update_profile(id):
             db.session.commit()
             # now take them back to the profile page
             # return f"{specific_user.name} successfully updated", render_template("profile.html")
-            flash(f"{specific_user.name} " + "successfully updated")
+            flash(f"{specific_user.name} " + "successfully updated", "success")
             next = request.args.get("next")
             # url_has_allowed_host_and_scheme should check if the url is safe
             # for redirects, meaning it matches the request host.
@@ -233,7 +247,10 @@ def update_profile(id):
     # Only on GET
     # get the user
     # user = request.form.get("profile")
+    print(form.errors)
     user = User.query.get(id)
+    if user is None:
+        flash("User not found", "error")
     user_dict = user.to_dict()
     print("This is the user underneath:")
     print(user_dict)

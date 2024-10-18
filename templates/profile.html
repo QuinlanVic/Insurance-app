@@ -2,24 +2,24 @@
 
 {% block title %} Profile {% endblock %}
 {% block content %}
-    <h1 class = "heading-policies">Profile</h1>
-    <div class="middle">
-        <div class="topic-container">
-            <img class = "topic-pic" src="{{profile['pic']}}" alt="profile pic">
-            <div class="lspec-rspec">
-                <p class="name">{{profile["name"]}}</p>
-                <p class="email">{{profile["email"]}}</p>
-            </div>
-            <div class="topic-action">
-                <form class="addprofile-form" action="{{url_for('profile.update_profile', id=profile.id)}}" method="get">
-                    <!-- <input name= "profile" type="text" value="{{profile}}" hidden> -->
-                    <button type="submit" class="button-15">Update</button>
-                </form>
-                <form class="addprofile-form" action="{{url_for('profile.delete_user_by_id')}}" method="post">
-                    <input name= "profile_id" type="text" value="{{profile.id}}" hidden>
-                    <button type="submit" class="button-15">Terminate</button>
-                </form>
-            </div>
+<h1 class="heading-policies">Profile</h1>
+<div class="middle">
+    <div class="topic-container">
+        <img class="topic-pic" src="{{profile['pic']}}" alt="profile pic">
+        <div class="lspec-rspec">
+            <p class="name">{{profile["name"]}}</p>
+            <p class="email">{{profile["email"]}}</p>
+        </div>
+        <div class="topic-action">
+            <form class="addprofile-form" action="{{url_for('profile.update_profile', id=profile.id)}}" method="get">
+                <!-- <input name= "profile" type="text" value="{{profile}}" hidden> -->
+                <button type="submit" class="button-15">Update</button>
+            </form>
+            <form class="addprofile-form" action="{{url_for('profile.delete_user_by_id')}}" method="post">
+                <input name="profile_id" type="text" value="{{profile.id}}" hidden>
+                <button type="submit" class="button-15">Terminate</button>
+            </form>
         </div>
     </div>
+</div>
 {% endblock %}
