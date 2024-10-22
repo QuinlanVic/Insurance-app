@@ -18,21 +18,18 @@ RUN apt-get update \
 # Copy the current directory contents into the container at /usr/src/app
 COPY . .
 
-# Copy the .env file into the container
-COPY .env .env
-
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Make port 8000 available to the world outside this container
-EXPOSE 8000
+EXPOSE 5000
 
 # Define environment variables for Flask (Optional if your app.py already loads .env)
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 
 # Run app.py using Gunicorn
-CMD ["gunicorn", "-b", "0.0.0.0:8000", "app:app"]
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app"]
 
 
 # ************************************************************************************************************************************

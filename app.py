@@ -13,6 +13,10 @@ from flask_login import LoginManager
 
 login_manager = LoginManager()
 
+import pymysql
+pymysql.install_as_MySQLdb()
+
+
 # CONNECT TO MSSM Database
 # All to keep away private passwords and stuff away from the public via
 # puts variables in .env file into windows environmental variables
@@ -126,6 +130,6 @@ try:
         # but always keep "create_all" when in production (for updates)
         # delete and then recreate tables
         # db.drop_all()
-        db.create_all()  # easier way to create tables through python after connecting
+        # db.create_all()  # easier way to create tables through python after connecting
 except Exception as e:
     print("Error connecting to the database:", e)
