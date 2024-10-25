@@ -33,7 +33,7 @@ provider "aws" {
 
 # Create ECR repository if not existing (using existing)
 resource "aws_ecr_repository" "my_app_repo" {
-  name = "quinlan/insurance-app"
+  name = "quinlan/insurance-app" # imported this so it doesn't try create a new one
 }
 
 # ECS Cluster
@@ -41,7 +41,7 @@ resource "aws_ecs_cluster" "my_app_cluster" {
   name = "my-app-cluster"
 }
 
-# TEST UP UNTIL HERE
+# TEST UP UNTIL HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 # Security group for load balancer
 resource "aws_security_group" "lb_sg" {
@@ -109,10 +109,10 @@ resource "aws_lb_listener" "http" {
 # Target Group for Load balancer
 resource "aws_lb_target_group" "my_app_tg" {
   name        = "my-app-tg"
-  port        = 5000 # where load balancer is going to send traffic to
+  port        = 5000 # where load balancer is going to send traffic to (container)
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
-  target_type = "ip"
+  target_type = "ip" # NB
 
   tags = {
     Name = "app-target-group"
@@ -214,6 +214,7 @@ resource "aws_ecs_service" "my_app_service" {
 
 # IAM role for the task execution
 resource "aws_iam_role" "ecs_task_execution_role" {
+  # This role is specifically created for ECS tasks to access AWS services and resources required for the task execution.
   name = "ecs-task-execution-role"
 
   assume_role_policy = jsonencode({
